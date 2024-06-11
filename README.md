@@ -11,17 +11,17 @@ Valuation Form:
 This project aims to provide a modern and convenient solution for diamond valuation, to create trust and satisfaction from customers.
 
 Team member:
-            SE170140 Nguyễn Văn Hưởng
-            SE170202 Nguyễn Thị Thu Hoài
-            SE170144 Lê Đức Thành
-            SE173287 Nguyễn Đức Long (leader)
-            SE173693 Nguyễn Khánh Trình
+- SE170140 Nguyễn Văn Hưởng
+- SE170202 Nguyễn Thị Thu Hoài
+- SE170144 Lê Đức Thành
+- SE173287 Nguyễn Đức Long (leader)
+- SE173693 Nguyễn Khánh Trình
 
 Mission: 
-Nguyễn Đức Long: Write R0 Mapping, Project JIRA, Link Github, Technical Requirements.
-Nguyễn Văn Hưởng: Write Major Features, Usecase Lists, Technical Requirements.
-Lê Đức Thành: Write project introduction, Technical requirements.
-Nguyễn Thị Thu Hoài: SRS, ERD, UI, Technical Requirements.
+- Nguyễn Đức Long: Write R0 Mapping, Project JIRA, Link Github, Technical Requirements.
+- Nguyễn Văn Hưởng: Write Major Features, Usecase Lists, Technical Requirements.
+- Lê Đức Thành: Write project introduction, Technical requirements.
+- Nguyễn Thị Thu Hoài: SRS, ERD, UI, Technical Requirements.
 
 SRS: https://docs.google.com/document/d/1haYefIUYDCfefNBvKdEY_NRAqWxsxlUxYnjeq8modUA/edit#heading=h.26in1rg
 
