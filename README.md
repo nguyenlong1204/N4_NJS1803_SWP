@@ -22,3 +22,4 @@ Mission:
 - Nguyễn Văn Hưởng: Write Major Features, Usecase Lists, Technical Requirements.
 - Lê Đức Thành: Write project introduction, Technical requirements.
 - Nguyễn Thị Thu Hoài: SRS, ERD, UI, Technical Requirements.
+- Nguyễn Khánh Trình: Technical requirement
