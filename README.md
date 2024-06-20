@@ -60,12 +60,7 @@ Test use case:
 - UC12-Declare Pricing list
 - UC13-Declare service performance time
 
-  | Left |  Center  | Right |
-|:-----|:--------:|------:|
-| L0   | **bold** | $1600 |
-| L1   |  `code`  |   $12 |
-| L2   | _italic_ |    $1 |
-- UC14-Declare Valuation Parameters
+meters
 - UC16-Receive Samples
 - UC17-Prepare Valuation Receipts
 - UC24-Create a Sealing Record
