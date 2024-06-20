@@ -1,8 +1,5 @@
 Diamond Valuation Project
 
-SRS: https://docs.google.com/document/d/1haYefIUYDCfefNBvKdEY_NRAqWxsxlUxYnjeq8modUA/edit?usp=sharing
-RM0: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleNcGFT6yTG5ey9xXJrs3hyazo/edit?usp=sharing
-
 Project objectives:
 Create a platform that helps customers value diamonds quickly and accurately, through online self-assessment or in-store valuation methods.
 
