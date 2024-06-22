@@ -1,0 +1,2 @@
+GitHub: https://github.com/nguyenlong1204/N4_NJS1803_SWP
+Jira: https://longndse173287.atlassian.net/jira/software/c/projects/NNS/boards/8
