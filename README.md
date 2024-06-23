@@ -32,27 +32,10 @@
 
 ## Test Use Case Assignments
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Team Member",
-    "h-1": "Use Cases",
-    "0-0": "**Nguyễn Đức Long**",
-    "0-1": "UC01: Login BE<br>UC20: Update Price BE<br>UC29: Update Account BE<br>UC30: Create Account BE<br>UC31: View Account (function getAllListAccount) BE<br>UC32: Delete Account BE",
-    "1-0": "**Nguyễn Văn Hưởng**",
-    "1-1": "UC05: Search Diamond<br>UC06: View result valuation<br>UC08: Evaluation through criteria<br>UC09: Valuation through request<br>UC19: View reports<br>UC15: Send results and valuation samples",
-    "2-0": "**Lê Đức Thành**",
-    "2-1": "UC10: Approve the sealed minutes<br>UC11: Approve the commitment letter<br>UC19: Synchronize Price Data<br>UC23: Analyze Samples<br>UC25: Make a Commitment Document<br>UC26: Grant Access",
-    "3-0": "**Nguyễn Thị Thu Hoài**",
-    "3-1": "UC02: Register<br>UC03: Change password<br>UC04: Confine password<br>UC07: Contact<br>UC21: Print Valuation Paper<br>UC22: Evaluate Samples",
-    "4-0": "**Nguyễn Khánh Trình**",
-    "4-1": "UC12: Declare Pricing list<br>UC13: Declare service performance time<br>UC14: Declare Valuation Parameters<br>UC16: Receive Samples<br>UC17: Prepare Valuation Receipts<br>UC24: Create a Sealing Record"
-  },
-  "cols": 2,
-  "rows": 5,
-  "align": [
-    null,
-    null
-  ]
-}
-[/block]
+| Team Member             | Use Cases                                                                                                                                                                                      |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Nguyễn Đức Long**     | UC01: Login BE, UC20: Update Price BE, UC29: Update Account BE, UC30: Create Account BE, UC31: View Account (function getAllListAccount) BE, UC32: Delete Account BE                           |
+| **Nguyễn Văn Hưởng**    | UC05: Search Diamond, UC06: View result valuation, UC08: Evaluation through criteria, UC09: Valuation through request, UC19: View reports, UC15: Send results and valuation samples            |
+| **Lê Đức Thành**        | UC10: Approve the sealed minutes, UC11: Approve the commitment letter, UC19: Synchronize Price Data, UC23: Analyze Samples, UC25: Make a Commitment Document, UC26: Grant Access               |
+| **Nguyễn Thị Thu Hoài** | UC02: Register, UC03: Change password, UC04: Confine password, UC07: Contact, UC21: Print Valuation Paper, UC22: Evaluate Samples                                                              |
+| **Nguyễn Khánh Trình**  | UC12: Declare Pricing list, UC13: Declare service performance time, UC14: Declare Valuation Parameters, UC16: Receive Samples, UC17: Prepare Valuation Receipts, UC24: Create a Sealing Record |
