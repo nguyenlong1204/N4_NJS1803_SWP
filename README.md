@@ -45,7 +45,7 @@
 |                         | UC08: Evaluation through criteria                         |
 |                         | UC09: Valuation through request                           |
 |                         | UC19: View reports                                        |
-                          | UC15: Send results and valuation samples                  |
+|                         | UC15: Send results and valuation samples                  |
 | **Lê Đức Thành**        | UC10: Approve the sealed minutes                          |
 |                         | UC11: Approve the commitment letter                       |
 |                         | UC19: Synchronize Price Data                              |
