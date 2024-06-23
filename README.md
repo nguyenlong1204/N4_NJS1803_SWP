@@ -32,10 +32,37 @@
 
 ## Test Use Case Assignments
 
-| Team Member             | Use Cases                                                                                                                                                                                      |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Nguyễn Đức Long**     | UC01: Login BE, UC20: Update Price BE, UC29: Update Account BE, UC30: Create Account BE, UC31: View Account (function getAllListAccount) BE, UC32: Delete Account BE                           |
-| **Nguyễn Văn Hưởng**    | UC05: Search Diamond, UC06: View result valuation, UC08: Evaluation through criteria, UC09: Valuation through request, UC19: View reports, UC15: Send results and valuation samples            |
-| **Lê Đức Thành**        | UC10: Approve the sealed minutes, UC11: Approve the commitment letter, UC19: Synchronize Price Data, UC23: Analyze Samples, UC25: Make a Commitment Document, UC26: Grant Access               |
-| **Nguyễn Thị Thu Hoài** | UC02: Register, UC03: Change password, UC04: Confine password, UC07: Contact, UC21: Print Valuation Paper, UC22: Evaluate Samples                                                              |
-| **Nguyễn Khánh Trình**  | UC12: Declare Pricing list, UC13: Declare service performance time, UC14: Declare Valuation Parameters, UC16: Receive Samples, UC17: Prepare Valuation Receipts, UC24: Create a Sealing Record |
+| Team Member             | Use Case                                                  |
+| ----------------------- | ----------------------------------------------------------|
+| **Nguyễn Đức Long**     | UC01: Login BE                                            |
+|                         | UC20: Update Price BE                                     |
+|                         | UC29: Update Account BE                                   |
+|                         | UC30: Create Account BE                                   |                                                                                                                             
+|                         | UC31: View Account (function getAllListAccount) BE        |
+|                         | UC32: Delete Account BE                                   |
+| **Nguyễn Văn Hưởng**    | UC05: Search Diamond                                      |
+|                         | UC06: View result valuation                               |
+|                         | UC08: Evaluation through criteria                         |
+|                         | UC09: Valuation through request                           |
+|                         | UC19: View reports                                        |
+                          | UC15: Send results and valuation samples                  |
+| **Lê Đức Thành**        | UC10: Approve the sealed minutes                          |
+|                         | UC11: Approve the commitment letter                       |
+|                         | UC19: Synchronize Price Data                              |
+|                         | UC23: Analyze Samples                                     |
+|                         | UC25: Make a Commitment Document                          |
+|                         | UC26: Grant Access                                        |
+| **Nguyễn Thị Thu Hoài** | UC02: Register                                            |
+|                         | UC03: Change password                                     |
+|                         | UC04: Confine password                                    |
+|                         | UC07: Contact                                             |
+|                         | UC21: Print Valuation Paper                               |
+|                         | UC22: Evaluate Samples                                    |
+| **Nguyễn Khánh Trình**  | UC12: Declare Pricing list                                |
+|                         | UC13: Declare service performance time                    |
+|                         | UC14: Declare Valuation Parameters                        |
+|                         | UC16: Receive Samples                                     |
+|                         | UC17: Prepare Valuation Receipts                          |
+|                         | UC24: Create a Sealing Record                             |
+
+
