@@ -56,8 +56,7 @@ Test use case:
 - Nguyễn Khánh Trình 12,13,14,16,17,24
 - UC12-Declare Pricing list
 - UC13-Declare service performance time
-
-meters
+- UC14:	Declare Valuation Parameters
 - UC16-Receive Samples
 - UC17-Prepare Valuation Receipts
 - UC24-Create a Sealing Record
