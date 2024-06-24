@@ -37,11 +37,10 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 | Team Member             | Use Case                                                  |
 | ----------------------- | ----------------------------------------------------------|
 | **Nguyễn Đức Long**     | UC01: Login BE                                            |
-|                         | UC20: Update Price BE                                     |
-|                         | UC29: Update Account BE                                   |
-|                         | UC30: Create Account BE                                   |                                                                                                                             
-|                         | UC31: View Account (function getAllListAccount) BE        |
-|                         | UC32: Delete Account BE                                   |
+|                         | UC19: Update Price BE                                     |
+|                         | UC27: Update Account BE                                   |
+|                         | UC28: Create Account BE                                   |                                                                                      |                         | UC29: View Account (function getAllListAccount) BE        |
+|                         | UC30: Delete Account BE                                   |
 | **Nguyễn Văn Hưởng**    | UC05: Search Diamond                                      |
 |                         | UC06: View result valuation                               |
 |                         | UC08: Evaluation through criteria                         |
@@ -67,4 +66,13 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 |                         | UC17: Prepare Valuation Receipts                          |
 |                         | UC24: Create a Sealing Record                             |
 
-
+## Sprint 1:
+| Team Member             | Use Case                                                  |
+| ----------------------- | ----------------------------------------------------------|
+|**Nguyễn Đức Long**      | UC29: View Account (function getAllListAccount) BE        |
+|                         | UC01: Login BE                                            |
+| **Nguyễn Văn Hưởng**    | UC05: Search Diamond                                      |
+| **Lê Đức Thành**        | UC10: Change password                                     |
+| **Nguyễn Thị Thu Hoài** | UC02: Register                                            |
+|                         | UC01: Login FE                                            |
+| **Nguyễn Khánh Trình**  | UC12: Declare Pricing list                                |
