@@ -32,7 +32,7 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 | **Nguyễn Thị Thu Hoài** | SRS, ERD, UI, Technical Requirements                                |
 | **Nguyễn Khánh Trình**  | Technical requirement                                               |
 
-## Test Use Case Assignments
+## Sprint 1
 
 | Team Member             | Use Case                                                  |
 | ----------------------- | ----------------------------------------------------------|
@@ -66,13 +66,3 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 |                         | UC17: Prepare Valuation Receipts                          |
 |                         | UC24: Create a Sealing Record                             |
 
-## Sprint 1:
-| Team Member             | Use Case                                                  |
-| ----------------------- | ----------------------------------------------------------|
-|**Nguyễn Đức Long**      | UC29: View Account (function getAllListAccount) BE        |
-|                         | UC01: Login BE                                            |
-| **Nguyễn Văn Hưởng**    | UC05: Search Diamond                                      |
-| **Lê Đức Thành**        | UC10: Change password                                     |
-| **Nguyễn Thị Thu Hoài** | UC02: Register                                            |
-|                         | UC01: Login FE                                            |
-| **Nguyễn Khánh Trình**  | UC12: Declare Pricing list                                |
