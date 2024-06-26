@@ -39,30 +39,41 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 | **Nguyễn Đức Long**     | UC01: Login BE                                            |
 |                         | UC19: Update Price BE                                     |
 |                         | UC27: Update Account BE                                   |
-|                         | UC28: Create Account BE                                   |                                                                                      |                         | UC29: View Account (function getAllListAccount) BE        |
+|                         | UC28: Create Account BE                                   |                                                                                    
+|                         | UC29: View Account (function getAllListAccount) BE        |
 |                         | UC30: Delete Account BE                                   |
+| **Nguyễn Văn Hưởng**    | UC04: Confine password                                    |
+|                         | UC07: Contact                                             |
+| **Lê Đức Thành**        | UC03: Change password                                     |                     
+| **Nguyễn Thị Thu Hoài** | UC02: Register                                            |
+| **Nguyễn Khánh Trình**  | UC08 - Evaluation through criteria                        |
+|                         | UC09: Valuation through request                           |
+
+## Sprint 2
+
+| Team Member             | Use Case                                                  |
+| ----------------------- | ----------------------------------------------------------|
+| **Nguyễn Đức Long**     |                                                           |
+|                         |                                                           |
+|                         |                                                           |
+|                         |                                                           |                                                                                    
+|                         |                                                           |
+|                         |                                                           |
 | **Nguyễn Văn Hưởng**    | UC05: Search Diamond                                      |
 |                         | UC06: View result valuation                               |
 |                         | UC14: Declare Valuation Parameters                        |
-|                         | UC16: Receive Samples                            |
-|                         | UC19: View reports                                        |
-|                         | UC15: Send results and valuation samples                  |
+|                         | UC16: Receive Samples                                     |
 | **Lê Đức Thành**        | UC10: Approve the sealed minutes                          |
 |                         | UC11: Approve the commitment letter                       |
 |                         | UC19: Synchronize Price Data                              |
 |                         | UC23: Analyze Samples                                     |
 |                         | UC25: Make a Commitment Document                          |
 |                         | UC26: Grant Access                                        |
-| **Nguyễn Thị Thu Hoài** | UC02: Register                                            |
-|                         | UC03: Change password                                     |
-|                         | UC04: Confine password                                    |
-|                         | UC07: Contact                                             |
+| **Nguyễn Thị Thu Hoài** | UC15: Send results and valuation samples                  |
+|                         | UC18 -View Reports                                        |
 |                         | UC21: Print Valuation Paper                               |
 |                         | UC22: Evaluate Samples                                    |
 | **Nguyễn Khánh Trình**  | UC12: Declare Pricing list                                |
 |                         | UC13: Declare service performance time                    |
-|                         | UC08: Evaluation through criteria                       |
-|                         | UC09: Valuation through request                                     |
 |                         | UC17: Prepare Valuation Receipts                          |
 |                         | UC24: Create a Sealing Record                             |
-
