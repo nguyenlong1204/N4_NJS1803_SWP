@@ -43,8 +43,8 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 |                         | UC30: Delete Account BE                                   |
 | **Nguyễn Văn Hưởng**    | UC05: Search Diamond                                      |
 |                         | UC06: View result valuation                               |
-|                         | UC08: Evaluation through criteria                         |
-|                         | UC09: Valuation through request                           |
+|                         | UC14: Declare Valuation Parameters                        |
+|                         | UC16: Receive Samples                            |
 |                         | UC19: View reports                                        |
 |                         | UC15: Send results and valuation samples                  |
 | **Lê Đức Thành**        | UC10: Approve the sealed minutes                          |
@@ -61,8 +61,8 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 |                         | UC22: Evaluate Samples                                    |
 | **Nguyễn Khánh Trình**  | UC12: Declare Pricing list                                |
 |                         | UC13: Declare service performance time                    |
-|                         | UC14: Declare Valuation Parameters                        |
-|                         | UC16: Receive Samples                                     |
+|                         | UC08: Evaluation through criteria                       |
+|                         | UC09: Valuation through request                                     |
 |                         | UC17: Prepare Valuation Receipts                          |
 |                         | UC24: Create a Sealing Record                             |
 
