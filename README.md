@@ -42,8 +42,7 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 |                         | UC28: Create Account BE                                   |                                                                                    
 |                         | UC29: View Account (function getAllListAccount) BE        |
 |                         | UC30: Delete Account BE                                   |
-| **Nguyễn Văn Hưởng**    | UC04: Confine password                                    |
-|                         | UC07: Contact                                             |
+| **Nguyễn Văn Hưởng**    | UC07: Contact                                             |
 | **Lê Đức Thành**        | UC03: Change password                                     |                     
 | **Nguyễn Thị Thu Hoài** | UC02: Register                                            |
 | **Nguyễn Khánh Trình**  | UC08 - Evaluation through criteria FE                     |
