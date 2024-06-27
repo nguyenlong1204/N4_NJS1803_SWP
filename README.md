@@ -46,19 +46,15 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 |                         | UC07: Contact                                             |
 | **Lê Đức Thành**        | UC03: Change password                                     |                     
 | **Nguyễn Thị Thu Hoài** | UC02: Register                                            |
-| **Nguyễn Khánh Trình**  | UC08 - Evaluation through criteria                        |
-|                         | UC09: Valuation through request                           |
+| **Nguyễn Khánh Trình**  | UC08 - Evaluation through criteria FE                     |
+|                         | UC09: Valuation through request FE                        |
 
 ## Sprint 2
 
 | Team Member             | Use Case                                                  |
 | ----------------------- | ----------------------------------------------------------|
-| **Nguyễn Đức Long**     |                                                           |
-|                         |                                                           |
-|                         |                                                           |
-|                         |                                                           |                                                                                    
-|                         |                                                           |
-|                         |                                                           |
+| **Nguyễn Đức Long**     | UC08 - Evaluation through criteria BE                     |
+|                         | UC09: Valuation through request BE                        |
 | **Nguyễn Văn Hưởng**    | UC05: Search Diamond                                      |
 |                         | UC06: View result valuation                               |
 |                         | UC14: Declare Valuation Parameters                        |
