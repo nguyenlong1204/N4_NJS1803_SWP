@@ -1,10 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Flex,
   FormControl,
   FormLabel,
   Input,
+  InputGroup,
+  InputRightElement,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -21,10 +23,15 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SignUp from "../signUp/SignUp";
 import { UserContext } from "../../components/GlobalContext/AuthContext";
+import { jwtDecode } from "jwt-decode";
+import { FiEye } from "react-icons/fi";
+import { IoEyeOffOutline } from "react-icons/io5";
 export default function Login({ signIn, signUp }) {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useContext(UserContext);
   const [isLogin, setIsLogin] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleShowPassWord = () => setShow(!show);
   async function fetchApi(username, password) {
     setIsLoading(true);
     try {
@@ -77,6 +84,30 @@ export default function Login({ signIn, signUp }) {
       setIsLoading(false);
     }
   }
+  const handleCredentialResponse = (response) => {
+    var decoded = jwtDecode(response.credential);
+    auth.loginUser(decoded);
+    setIsLogin(true);
+    console.log(decoded);
+    document.getElementById("buttonDiv").hidden = true;
+  };
+  useEffect(() => {
+    if (signIn.isOpen) {
+      const timer = setTimeout(() => {
+        google.accounts.id.initialize({
+          client_id:
+            "1032521199225-r9jgfsi47aoon2vmocalcld8qtfhrk33.apps.googleusercontent.com",
+          callback: handleCredentialResponse,
+        });
+        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {
+          theme: "outline",
+          size: "large",
+        });
+        google.accounts.id.prompt();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [signIn.isOpen]);
   return (
     <>
       <ToastContainer />
@@ -118,13 +149,20 @@ export default function Login({ signIn, signUp }) {
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel>Password</FormLabel>
-                      <Input
-                        name="password"
-                        type="password"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.password}
-                      />
+                      <InputGroup>
+                        <Input
+                          name="password"
+                          type={show ? "text" : "password"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.password}
+                        />
+                        <InputRightElement>
+                          <Text onClick={handleShowPassWord} cursor={"pointer"}>
+                            {show ? <IoEyeOffOutline /> : <FiEye />}
+                          </Text>
+                        </InputRightElement>
+                      </InputGroup>
                     </FormControl>
                     <Flex
                       direction={"row"}
@@ -132,7 +170,7 @@ export default function Login({ signIn, signUp }) {
                       justifyContent={"space-between"}
                       m={"10px"}
                     >
-                      <Text fontSize={"sm"}>Forgot password</Text>
+                      <Text fontSize={"sm"}>Forgot password ?</Text>
                       <Button
                         isLoading={isLoading}
                         type="submit"
@@ -146,31 +184,38 @@ export default function Login({ signIn, signUp }) {
                 )}
               </Formik>
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter justifyContent={"space-between"}>
               <Flex
-                direction={"row"}
+                direction={"column"}
                 alignItems={"center"}
-                justifyContent={"center"}
-                gap={2}
+                justifyContent={"space-between"}
+                w={"100%"}
+                gap={5}
               >
-                <Text fontSize={"sm"}>Don't have an account? </Text>
-                <Link>
-                  <Text
-                    fontSize={"sm"}
-                    onClick={() => {
-                      signUp.onOpen();
-                      signIn.onClose();
-                    }}
-                  >
-                    Sign up
-                  </Text>
-                </Link>
+                <Text>
+                  <div id="buttonDiv"></div>
+                </Text>
+                <Text fontSize={"sm"} display={"flex"} gap={2}>
+                  <div>Don't have an account? </div>
+                  <Link>
+                    <Text
+                      fontSize={"sm"}
+                      _hover={{ color: "blue.400" }}
+                      onClick={() => {
+                        signUp.onOpen();
+                        signIn.onClose();
+                      }}
+                    >
+                      Sign up
+                    </Text>
+                  </Link>
+                </Text>
               </Flex>
             </ModalFooter>
           </ModalContent>
         </Modal>
       )}
-      <SignUp signUp={signUp} />
+      <SignUp signUp={signUp} signIn={signIn} />
     </>
   );
 }

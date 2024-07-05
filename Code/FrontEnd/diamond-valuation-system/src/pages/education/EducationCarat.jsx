@@ -30,7 +30,7 @@ export default function EducationCarat() {
   const normalText = useBreakpointValue({ base: "sm", md: "md", lg: "lg" });
   return (
     <>
-      <ScrollToTop smooth />
+      <ScrollToTop smooth style={{display:"flex" ,alignItems:"center", justifyContent:"center", padding:"4px"}}/>
       <Container maxW={"100vw"}>
         <Flex
           direction="column"

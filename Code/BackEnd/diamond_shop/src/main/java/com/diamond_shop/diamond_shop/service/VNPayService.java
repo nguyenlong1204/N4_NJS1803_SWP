@@ -49,8 +49,8 @@ public class VNPayService {
                 .sorted(Map.Entry.comparingByKey())
                 .map(entry -> {
                     try {
-                        return URLEncoder.encode(entry.getKey(), StandardCharsets.US_ASCII.toString()) + "=" +
-                                URLEncoder.encode(entry.getValue(), StandardCharsets.US_ASCII.toString());
+                        return URLEncoder.encode(entry.getKey(), StandardCharsets.US_ASCII) + "=" +
+                                URLEncoder.encode(entry.getValue(), StandardCharsets.US_ASCII);
                     } catch (Exception e) {
                         throw new RuntimeException("Error while encoding URL parameters", e);
                     }

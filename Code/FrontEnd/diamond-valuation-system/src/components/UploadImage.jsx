@@ -9,10 +9,11 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { makeRequest } from "../service/MakeRequest";
 
-export default function UploadImage({ description, service }) {
+export default function UploadImage({ diamondId }) {
+  const navigate = useNavigate();
   const [selectedImages, setSelectedImages] = useState([]);
   const [isUploading, setIsUpLoading] = useState(false);
   const toast = useToast();
@@ -36,18 +37,36 @@ export default function UploadImage({ description, service }) {
             body: formData,
           }
         );
-        const data = await res.json();
-        console.log(data.public_id);
+        if (res) {
+          const data = await res.json();
+          console.log(data.public_id);
+          setIsUpLoading(false);
+          toast({
+            title: "Sending successful!",
+            position: "top-right",
+            description: "Your diamond image has been submitted successfully",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+          axios
+            .post(
+              `${
+                import.meta.env.VITE_REACT_APP_BASE_URL
+              }/api/valuation-result/image/create`,
+              {
+                id: data?.public_id,
+                valuationResultId: diamondId,
+              }
+            )
+            .then(function (response) {
+              console.log(response.data);
+              setTimeout(() => {
+                navigate(0);
+              }, 1000);
+            });
+        }
       }
-      setIsUpLoading(false);
-      toast({
-        title: "Sending successful!",
-        position: "top-right",
-        description: "Your diamond image has been submitted successfully",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
     } catch (error) {
       setIsUpLoading(false);
       toast({
@@ -132,7 +151,7 @@ export default function UploadImage({ description, service }) {
             onClick={handleSubmitImages}
             isLoading={isUploading}
           >
-            Submit
+            Upload
           </Button>
         </Flex>
       )}

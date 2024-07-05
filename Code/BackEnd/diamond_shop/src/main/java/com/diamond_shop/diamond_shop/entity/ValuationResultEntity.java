@@ -18,80 +18,102 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "Valuation_results")
+@Table(name = "valuation_results")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ValuationResultEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
-    private int id;
+    @Column(name = "id")
+    private String id;
 
     @OneToOne
-    @JoinColumn(name = "Valuation_request_id")
+    @JoinColumn(name = "valuation_request_id")
     private ValuationRequestEntity valuationRequestId;
 
-    @Column(name = "Created_date")
+    @Column(name = "created_date")
     private Date createdDate;
 
-    @Column(name = "Origin")
+    @Column(name = "origin")
     private String origin;
 
-    @Column(name = "Shape")
+    @Column(name = "shape")
     private String shape;
 
-    @Column(name = "Carat_weight")
-    private BigDecimal carat_weight;
+    @Column(name = "carat")
+    private BigDecimal carat;
 
-    @Column(name = "Color")
+    @Column(name = "color")
     private String color;
 
-    @Column(name = "Cut")
+    @Column(name = "cut")
     private String cut;
 
-    @Column(name = "Clarity")
+    @Column(name = "clarity")
     private String clarity;
 
-    @Column(name = "Measurements")
-    private String measurements;
-
-    @Column(name = "Polish")
-    private String polish;
-
-    @Column(name = "Symmetry")
+    @Column(name = "symmetry")
     private String symmetry;
 
-    @Column(name = "Fluorescence")
+    @Column(name = "polish")
+    private String polish;
+
+    @Column(name = "fluorescence")
     private String fluorescence;
 
-    @Column(name = "Proportions")
-    private String proportions;
+    @Column(name = "measurements")
+    private String measurements;
 
-    @Column(name = "Price")
+    @Column(name = "diamond_table")
+    private BigDecimal diamondTable;
+
+    @Column(name = "depth")
+    private BigDecimal depth;
+
+    @Column(name = "length_to_width_ratio")
+    private BigDecimal lengthToWidthRatio;
+
+    @Column(name = "price")
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "valuationResultId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<ProcessResultEntity> processResults = new HashSet<>();
+    @OneToOne(mappedBy = "valuationResultId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private ProcessResultEntity processResults;
 
-    @OneToOne(mappedBy = "valuationResult", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ValuatedDiamondEntity valuatedDiamond;
+    @OneToMany(mappedBy = "valuationResult", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<ValuationResultImageEntity> images = new HashSet<>();
 
-    public ValuationResultEntity(ValuationRequestEntity valuationRequestId, Date createdDate,
-                                 String origin, String shape, BigDecimal carat_weight, String color, String cut,
-                                 String clarity, String measurements, String polish, String symmetry, String fluorescence,
-                                 String proportions, BigDecimal price) {
+    public ValuationResultEntity(
+            String id,
+            ValuationRequestEntity valuationRequestId,
+            Date createdDate,
+            String origin,
+            String shape,
+            BigDecimal carat,
+            String color,
+            String cut,
+            String clarity,
+            String symmetry,
+            String polish,
+            String fluorescence,
+            String measurements,
+            BigDecimal diamondTable,
+            BigDecimal depth,
+            BigDecimal lengthToWidthRatio,
+            BigDecimal price) {
+        this.id = id;
         this.valuationRequestId = valuationRequestId;
         this.createdDate = createdDate;
         this.origin = origin;
         this.shape = shape;
-        this.carat_weight = carat_weight;
+        this.carat = carat;
         this.color = color;
         this.cut = cut;
         this.clarity = clarity;
-        this.measurements = measurements;
-        this.polish = polish;
         this.symmetry = symmetry;
+        this.polish = polish;
         this.fluorescence = fluorescence;
-        this.proportions = proportions;
+        this.measurements = measurements;
+        this.diamondTable = diamondTable;
+        this.depth = depth;
+        this.lengthToWidthRatio = lengthToWidthRatio;
         this.price = price;
     }
 }

@@ -9,7 +9,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   useToast,
@@ -17,7 +16,6 @@ import {
 import { Form, Formik } from "formik";
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-
 export default function SendEmailModal({ sendEmailModal, message }) {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -27,12 +25,14 @@ export default function SendEmailModal({ sendEmailModal, message }) {
   const emailForm = useRef();
   const sendEmail = (e) => {
     try {
+      setIsLoading(true);
       e.preventDefault();
       emailjs
         .sendForm(`${serviceID}`, `${templateID}`, emailForm.current, {
           publicKey: `${publicKey}`,
         })
         .then(() => {
+          setIsLoading(false);
           console.log("SUCCESS");
           toast({
             title: "Email sent successfully",
@@ -64,9 +64,9 @@ export default function SendEmailModal({ sendEmailModal, message }) {
         <ModalBody>
           <Formik
             initialValues={{
-              from_name: "Lam Tien Hung",
+              from_name: "DiamondVal",
               from_email: "lamtienhung0412@gmail.com",
-              user_name: "ABCXYZ",
+              user_name: "",
               user_email: "",
               message: { message },
             }}
@@ -117,7 +117,6 @@ export default function SendEmailModal({ sendEmailModal, message }) {
             )}
           </Formik>
         </ModalBody>
-        <ModalFooter></ModalFooter>
       </ModalContent>
     </Modal>
   );

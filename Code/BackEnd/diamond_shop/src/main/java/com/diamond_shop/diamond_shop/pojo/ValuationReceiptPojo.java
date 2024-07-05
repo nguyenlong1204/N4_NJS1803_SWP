@@ -4,12 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
 public class ValuationReceiptPojo {
-    private String customerName;
-    private String customerPhoneNumber;
-    private String customerAddress;
-    private String price;
+    int id;
+    Date createdDate;
+    String customerName;
+    String customerPhone;
+    String consultingStaffName;
+    String consultingStaffPhone;
+    String description;
+    Date paymentDate;
+    String bank;
+    int amount;
+    String transactionNo;
+    String orderInfo;
 }

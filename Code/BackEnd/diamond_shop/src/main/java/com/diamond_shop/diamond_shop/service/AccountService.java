@@ -7,8 +7,6 @@ import com.diamond_shop.diamond_shop.dto.LoginMessageDTO;
 import com.diamond_shop.diamond_shop.entity.AccountEntity;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
-
 public interface AccountService {
 
     Page<AccountEntity> getAllAccountsById(String search, int pageId, String filter);
@@ -16,6 +14,8 @@ public interface AccountService {
     String addAccount(AccountDTO accountDTO);
 
     String createAccount(AccountDTO accountDTO);
+
+    String deleteHardAccount(int id);
 
     String updateAccount(AccountDTO accountDTO);
 
@@ -26,4 +26,5 @@ public interface AccountService {
     String updatePhoneNumber(String phoneNumber);
 
     String checkDuplicateAccount(String type, int id, String username, String email, String phoneNumber);
+
 }

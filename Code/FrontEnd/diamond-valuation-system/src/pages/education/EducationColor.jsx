@@ -41,7 +41,7 @@ export default function EducationColor() {
   const normalText = useBreakpointValue({ base: "sm", md: "md", lg: "lg" });
   return (
     <>
-      <ScrollToTop smooth />
+      <ScrollToTop smooth style={{display:"flex" ,alignItems:"center", justifyContent:"center", padding:"4px"}}/>
       <Flex
         direction="column"
         alignItems="center"

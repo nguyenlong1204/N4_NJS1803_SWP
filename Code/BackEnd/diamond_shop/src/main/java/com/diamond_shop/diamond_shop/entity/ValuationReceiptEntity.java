@@ -12,28 +12,28 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "Valuation_receipts")
+@Table(name = "valuation_receipts")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ValuationReceiptEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private int id;
 
+    @OneToOne
+    @JoinColumn(name = "valuation_request_id")
+    private ValuationRequestEntity valuationRequest;
+
     @NotNull(message = "Created date is mandatory")
-    @Column(name = "Created_date")
+    @Column(name = "created_date")
     private Date createdDate;
 
-    @OneToOne
-    @JoinColumn(name = "Valuation_request_id")
-    private ValuationRequestEntity valuationRequestId;
-
-    public ValuationReceiptEntity(Date createdDate, ValuationRequestEntity valuationRequestId) {
+    public ValuationReceiptEntity(ValuationRequestEntity valuationRequest, Date createdDate) {
+        this.valuationRequest = valuationRequest;
         this.createdDate = createdDate;
-        this.valuationRequestId = valuationRequestId;
     }
 }

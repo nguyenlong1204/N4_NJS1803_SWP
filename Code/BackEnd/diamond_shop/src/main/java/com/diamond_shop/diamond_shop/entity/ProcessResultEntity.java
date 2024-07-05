@@ -20,35 +20,28 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "Process_results")
+@Table(name = "process_results")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ProcessResultEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "Valuation_staff_id")
+    @JoinColumn(name = "valuation_staff_id")
     private AccountEntity valuationStaffId;
 
-    @ManyToOne
-    @JoinColumn(name = "Valuation_result_id")
+    @OneToOne
+    @JoinColumn(name = "valuation_result_id")
     private ValuationResultEntity valuationResultId;
 
-    @OneToOne
-    @JoinColumn(name = "Process_request_id")
-    private ProcessRequestEntity ProcessRequestId;
+    @Column(name = "status")
+    private String status;
 
-    @Column(name = "Name")
-    private String name;
-
-    public ProcessResultEntity(AccountEntity valuationStaffId, ValuationResultEntity valuationResultId,
-            ProcessRequestEntity processRequestId, String name) {
+    public ProcessResultEntity(AccountEntity valuationStaffId, ValuationResultEntity valuationResultId, String status) {
         this.valuationStaffId = valuationStaffId;
         this.valuationResultId = valuationResultId;
-        this.ProcessRequestId = processRequestId;
-        this.name = name;
+        this.status = status;
     }
-    
 }

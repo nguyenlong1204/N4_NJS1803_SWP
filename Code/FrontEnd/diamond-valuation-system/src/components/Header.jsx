@@ -24,9 +24,10 @@ import { GiDiamondTrophy } from "react-icons/gi";
 import { Link, useNavigate } from "react-router-dom";
 import routes from "../config/Config";
 import Login from "../pages/login/Login";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./GlobalContext/AuthContext";
 import { Bounce, ToastContainer, toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
@@ -54,12 +55,9 @@ export default function Header() {
   };
   const changeColorMode = () => {
     toggleColorMode();
-    // document.querySelector("._container_tczam_16").style.backgroundColor =
-    //   colorMode === "light" ? "black" : "white";
-    // document.querySelector("._wrapper_tczam_7").style.backgroundColor =
-    //   colorMode === "light" ? "black" : "white";
   };
   return (
+    <>
       <Container marginBottom={"70px"}>
         <ToastContainer />
         <Flex
@@ -68,7 +66,7 @@ export default function Header() {
           left={"0px"}
           width={"100vw"}
           height="70px"
-          zIndex={1}
+          zIndex={999}
           direction={"row"}
           align={"center"}
           bg={bgColor}
@@ -95,9 +93,6 @@ export default function Header() {
               />
               <MenuList>
                 <MenuItem>
-                  <Link to={routes.search}>Search</Link>
-                </MenuItem>
-                <MenuItem>
                   <Link to={routes.diamondCheck}>Diamond Check</Link>
                 </MenuItem>
                 <MenuItem>
@@ -117,7 +112,11 @@ export default function Header() {
               direction={"row"}
               flex={{ base: 6, md: 1, lg: 1 }}
               alignItems={"center"}
-              justify={{ base: "center", md: "start", lg: "start" }}
+              justify={{
+                base: "center",
+                md: "start",
+                lg: "start",
+              }}
             >
               <Icon
                 as={GiDiamondTrophy}
@@ -142,11 +141,6 @@ export default function Header() {
             justify={"center"}
             gap={20}
           >
-            <Link to={routes.search}>
-              <Text fontSize={"lg"} fontWeight={"bold"}>
-                Search
-              </Text>
-            </Link>
             <Link to={routes.diamondCheck}>
               <Text fontSize={"lg"} fontWeight={"bold"}>
                 Diamond Check
@@ -200,7 +194,6 @@ export default function Header() {
               </MenuList>
             </Menu>
           </Flex>
-          {console.log(auth.userAuth)}
           <Flex
             direction="row"
             flex={1}
@@ -219,7 +212,13 @@ export default function Header() {
                 size={{ base: "xs", md: "sm", lg: "md" }}
                 onClick={modalSignIn.onOpen}
               >
-                <Text fontSize={{ base: "xs", md: "sm", lg: "md" }}>
+                <Text
+                  fontSize={{
+                    base: "xs",
+                    md: "sm",
+                    lg: "md",
+                  }}
+                >
                   Sign in
                 </Text>
               </Button>
@@ -231,8 +230,8 @@ export default function Header() {
                   bg={colorMode}
                 >
                   <Avatar
-                    name={auth.userAuth.fullname}
-                    // src="https://bit.ly/broken-link"
+                    name={auth.userAuth.fullname || auth.userAuth.name}
+                    src={auth.userAuth.picture}
                   />
                 </MenuButton>
                 <MenuList>
@@ -247,5 +246,6 @@ export default function Header() {
         </Flex>
         <Login signIn={modalSignIn} signUp={modalSignUp} />
       </Container>
+    </>
   );
 }

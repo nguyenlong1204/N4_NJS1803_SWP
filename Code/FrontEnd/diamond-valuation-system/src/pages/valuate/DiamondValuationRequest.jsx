@@ -8,18 +8,66 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Title from "../../components/Title";
 import { Form, Formik } from "formik";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
-import routes from "../../config/Config";
+import { UserContext } from "../../components/GlobalContext/AuthContext";
 export default function DiamondValuationRequest() {
+  const user = useContext(UserContext);
   const bgColor = useColorModeValue("white", "black");
-
-  const location = useLocation();
-
   const toast = useToast();
+  const createPendingRequest = async (
+    customerId,
+    description,
+    setSubmitting
+  ) => {
+    await axios
+      .post(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/pending-request/create`,
+        {
+          customerId: customerId,
+          description: description,
+        }
+      )
+      .then(function (response) {
+        if (response.status === 200) {
+          setSubmitting(false);
+          toast({
+            title: response.data,
+            status: "success",
+            position: "top-right",
+            duration: 3000,
+            isClosable: true,
+          });
+        }
+      });
+  };
+  const checkCustomerPendingRequest = async (
+    customerId,
+    description,
+    setSubmitting
+  ) => {
+    await axios
+      .get(
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/api/pending-request/customer/check?id=${customerId}`
+      )
+      .then(function (response) {
+        if (response.data.includes("already")) {
+          setSubmitting(false);
+          toast({
+            title: response.data,
+            status: "warning",
+            duration: 3000,
+            isClosable: true,
+          });
+        } else {
+          createPendingRequest(customerId, description, setSubmitting);
+        }
+      });
+  };
   return (
     <>
       <Flex
@@ -40,53 +88,32 @@ export default function DiamondValuationRequest() {
         <Center mt={5} mb={5}>
           <Formik
             initialValues={{ description: "" }}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={async (values, { setSubmitting }) => {
               try {
-                if (location.state?.serviceId === undefined) {
-                  toast({
-                    title: "Please select a service first.",
-                    status: "error",
-                    duration: 2000,
-                    isClosable: true,
-                  });
-                  setTimeout(() => {
-                    window.location.href = routes.diamondService;
-                  }, 2000);
-                }
                 if (localStorage.getItem("user") === null) {
-                  console.log("Please login first.");
                   toast({
-                    title: "Please login first.",
+                    title: "Please login first !",
                     status: "error",
-                    duration: 500,
+                    duration: 3000,
+                    position: "top-right",
                     isClosable: true,
                   });
-                    setSubmitting(false);
+                  setSubmitting(false);
+                } else if (user.userAuth.roleid !== 5) {
+                  toast({
+                    title: "Just customer can make a request !",
+                    status: "warning",
+                    duration: 3000,
+                    position: "top-right",
+                    isClosable: true,
+                  });
+                  setSubmitting(false);
                 } else {
-                  const res = axios
-                    .post(
-                      "http://localhost:8081/api/valuation-request/create",
-                      {
-                        username: JSON.parse(localStorage.getItem("user"))
-                          .username,
-                        serviceId: location.state?.serviceId,
-                        createdDate: "",
-                        description: values.description,
-                      }
-                    )
-                    .then(() => {
-                      console.log(res.data);
-                      setSubmitting(false);
-                      toast({
-                        title: "Successful. Our team will contact you soon.",
-                        status: "success",
-                        duration: 2000,
-                        isClosable: true,
-                      });
-                      // setTimeout(() => {
-                      //   window.location.href = routes.home;
-                      // }, 2000);
-                    });
+                  checkCustomerPendingRequest(
+                    user.userAuth.id,
+                    values.description,
+                    setSubmitting
+                  );
                 }
               } catch (e) {
                 console.log(e);

@@ -15,8 +15,6 @@ import {
   useColorModeValue,
   useDisclosure,
   Container,
-  useBreakpointValue,
-  Grid,
   SimpleGrid,
 } from "@chakra-ui/react";
 import { IoDiamond, IoDiamondOutline } from "react-icons/io5";
@@ -53,7 +51,7 @@ export default function Calculate() {
 
   const [gradingLab, setGradingLab] = useState("AGS");
   const [carat, setCarat] = useState(1);
-  const [shape, setShape] = useState("ROUND");
+  const [shape, setShape] = useState("ROUND");  
   const [color, setColor] = useState("D");
   const [cut, setCut] = useState("POOR");
   const [clarity, setClarity] = useState("IF");
@@ -86,14 +84,17 @@ export default function Calculate() {
       }
       setIsLoading(true);
       await axios
-        .post("http://localhost:8081/api/diamond/calculate", {
-          gradingLab: gradingLab,
-          carat: carat,
-          shape: shape,
-          color: color,
-          clarity: clarity,
-          cut: cut,
-        })
+        .post(
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/diamond/calculate`,
+          {
+            gradingLab: gradingLab,
+            carat: carat,
+            shape: shape,
+            color: color,
+            clarity: clarity,
+            cut: cut,
+          }
+        )
         .then(function (response) {
           console.log(response.data.body);
           const test = new DOMParser().parseFromString(
@@ -150,7 +151,7 @@ export default function Calculate() {
 
   return (
     <>
-      <ScrollToTop smooth />
+      <ScrollToTop smooth style={{display:"flex" ,alignItems:"center", justifyContent:"center", padding:"4px"}}/>
       <Container maxW={"9xl"}>
         <Flex
           direction="column"

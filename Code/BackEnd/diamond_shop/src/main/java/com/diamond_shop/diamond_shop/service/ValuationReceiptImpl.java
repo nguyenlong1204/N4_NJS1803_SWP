@@ -4,31 +4,39 @@ import com.diamond_shop.diamond_shop.entity.ValuationReceiptEntity;
 import com.diamond_shop.diamond_shop.entity.ValuationRequestEntity;
 import com.diamond_shop.diamond_shop.repository.ValuationReceiptRepository;
 import com.diamond_shop.diamond_shop.repository.ValuationRequestRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class ValuationReceiptImpl implements ValuationReceiptService {
 
-    @Autowired
-    ValuationRequestRepository valuationRequestRepository;
+    private final ValuationReceiptRepository valuationReceiptRepository;
+    private final ValuationRequestRepository valuationRequestRepository;
 
-    @Autowired
-    ValuationReceiptRepository valuationReceiptRepository;
+    public ValuationReceiptImpl(ValuationReceiptRepository valuationReceiptRepository,
+                                ValuationRequestRepository valuationRequestRepository) {
+        this.valuationReceiptRepository = valuationReceiptRepository;
+        this.valuationRequestRepository = valuationRequestRepository;
+    }
 
     @Override
     public String createReceipt(int valuationRequestId) {
-        ValuationRequestEntity valuationRequest = valuationRequestRepository.findById(valuationRequestId);
-        if (valuationRequest == null)
-            return "Valuation Request Not Found";
-        ValuationReceiptEntity valuationReceipt = valuationReceiptRepository.findByValuationRequestId(valuationRequestId);
-        if (valuationReceipt != null)
-            return "Valuation Receipt Has Already Been Created";
+        Optional<ValuationRequestEntity> valuationRequest = valuationRequestRepository.findById(valuationRequestId);
+        if (valuationRequest.isEmpty())
+            return "Cannot find valuation request";
+        Optional<ValuationReceiptEntity> valuationReceipt = valuationReceiptRepository.checkByValuationRequestId(valuationRequestId);
+        if (valuationReceipt.isPresent())
+            return "Valuation Receipt has already exists";
         Date date = new Date();
-        ValuationReceiptEntity valuationReceiptEntity = new ValuationReceiptEntity(date, valuationRequest);
+        ValuationReceiptEntity valuationReceiptEntity = new ValuationReceiptEntity(valuationRequest.get(), date);
         valuationReceiptRepository.save(valuationReceiptEntity);
-        return "success";
+        return "Valuation Receipt created successful";
+    }
+
+    @Override
+    public Optional<ValuationReceiptEntity> findByValuationRequestId(int valuationRequestId) {
+        return valuationReceiptRepository.findByValuationRequestId(valuationRequestId);
     }
 }

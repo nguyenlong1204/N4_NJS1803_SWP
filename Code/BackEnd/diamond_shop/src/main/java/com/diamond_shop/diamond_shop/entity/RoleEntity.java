@@ -14,18 +14,19 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "Roles")
+@Table(name = "roles")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class RoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private int id;
 
     @NotNull(message = "Role name is mandatory")
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
-
+    
+    // Link with FK
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private List<AccountEntity> users;
 }

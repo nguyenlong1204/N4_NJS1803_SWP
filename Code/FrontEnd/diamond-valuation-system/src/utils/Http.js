@@ -1,6 +1,6 @@
 import axios from "axios";
 const httpRequest = axios.create({
-  baseURL: "http://localhost:8081",
+  baseURL: import.meta.env.VITE_REACT_APP_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },

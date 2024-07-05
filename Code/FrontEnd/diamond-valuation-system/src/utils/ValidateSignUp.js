@@ -27,7 +27,11 @@ export const validateSignUp = (values, type) => {
     }
   }
   if (values.fullName) {
-    if (!/^(?!\s)[a-zA-Z\s]*$/.test(values.fullName)) {
+    if (
+      !/^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$/.test(
+        values.fullName
+      )
+    ) {
       errors.fullName = "Invalid full name";
     }
   }
@@ -40,12 +44,12 @@ export const validateSignUp = (values, type) => {
       errors.email = "Invalid email address";
     }
   }
-  
+
   if (values.phoneNumber) {
     if (values.phoneNumber.length > 10) {
       errors.phoneNumber = "Invalid phone number";
     }
-    if(!values.phoneNumber.startsWith("0")&&values.phoneNumber.length>9){
+    if (!values.phoneNumber.startsWith("0") && values.phoneNumber.length > 9) {
       errors.phoneNumber = "Invalid phone number";
     }
     if (!/^0?([3|5|7|8|9]+([0-9]{8})\b)/.test(values.phoneNumber)) {

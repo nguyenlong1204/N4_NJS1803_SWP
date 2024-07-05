@@ -1,9 +1,7 @@
 package com.diamond_shop.diamond_shop.service;
 
 import com.diamond_shop.diamond_shop.pojo.ServiceResultPojo;
-import com.diamond_shop.diamond_shop.repository.AccountRepository;
 import com.diamond_shop.diamond_shop.repository.ServiceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -15,10 +13,11 @@ import java.util.Map;
 @Service
 public class DiamondImpl implements DiamondService {
 
-    @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
-    private ServiceRepository serviceRepository;
+    private final ServiceRepository serviceRepository;
+
+    public DiamondImpl(ServiceRepository serviceRepository) {
+        this.serviceRepository = serviceRepository;
+    }
 
     @Override
     public ResponseEntity<String> fetchDiamondCalculate(String gradingLab, String carat, String shape, String color, String clarity, String cut) {
@@ -33,17 +32,15 @@ public class DiamondImpl implements DiamondService {
         params.put("cert", gradingLab);
         String finalUrl = fetchUrl.concat(builderQueryString(params));
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity(finalUrl, String.class);
-        return response;
+        return restTemplate.getForEntity(finalUrl, String.class);
     }
 
     @Override
     public List<ServiceResultPojo> getAllServices() {
-        List<ServiceResultPojo> services = serviceRepository.searchAllServices();
-        System.out.println(services);
-        return services;
+        return serviceRepository.getAllServices();
     }
 
+    //
     private String builderQueryString(Map<String, String> params) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("?");

@@ -7,24 +7,27 @@ import com.diamond_shop.diamond_shop.entity.AccountEntity;
 import com.diamond_shop.diamond_shop.entity.RoleEntity;
 import com.diamond_shop.diamond_shop.repository.AccountRepository;
 import com.diamond_shop.diamond_shop.repository.RoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AccountImpl implements AccountService {
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
+    private final AccountRepository accountRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public AccountImpl(AccountRepository accountRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+        this.accountRepository = accountRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
 
     @Override
     public Page<AccountEntity> getAllAccountsById(String search, int pageId, String filter) {
@@ -47,7 +50,6 @@ public class AccountImpl implements AccountService {
         return accountRepository.findAll(PageRequest.of(pageNumber, pageSize, Sort.by("role")));
     }
 
-    // private AccountDTO accountDTO;
     @Override
     public String addAccount(AccountDTO accountDTO) {
         String updatePhoneNumber = updatePhoneNumber(accountDTO.getPhonenumber());
@@ -57,7 +59,14 @@ public class AccountImpl implements AccountService {
 
         RoleEntity role = roleRepository.findById(5).orElseThrow(() -> new RuntimeException("Role not found"));
         String encodedPassword = passwordEncoder.encode(accountDTO.getPassword());
-        AccountEntity account = new AccountEntity(role, accountDTO.getUsername(), encodedPassword, accountDTO.getFullname(), updatePhoneNumber);
+        AccountEntity account = new AccountEntity(
+                role,
+                accountDTO.getUsername(),
+                encodedPassword,
+                accountDTO.getFullname(),
+                updatePhoneNumber,
+                accountDTO.getEmail()
+        );
         accountRepository.save(account);
         return account.getUsername();
     }
@@ -81,14 +90,7 @@ public class AccountImpl implements AccountService {
         String errorMessage = "";
         boolean isUsernameExist = false, isEmailExist = false, isPhoneNumberExist = false;
         switch (type) {
-            case "add":
-                isUsernameExist = accountRepository.findByUserName(username) != null;
-                if (isUsernameExist) errorMessage += "Username, ";
-                isPhoneNumberExist = accountRepository.findByPhoneNumber(phoneNumber) != null;
-                if (isPhoneNumberExist) errorMessage += "Phone number ";
-                if (isUsernameExist || isPhoneNumberExist) errorMessage += "already exist";
-                else return errorMessage;
-            case "create":
+            case "add", "create":
                 isUsernameExist = accountRepository.findByUserName(username) != null;
                 if (isUsernameExist) errorMessage += "Username, ";
                 isEmailExist = accountRepository.findByEmail(email) != null;
@@ -151,7 +153,7 @@ public class AccountImpl implements AccountService {
         if (acc1 != null) {
             String password = loginDTO.getPassword();
             String encodedPassword = acc1.getPassword();
-            Boolean isPwdRight = passwordEncoder.matches(password, encodedPassword);
+            boolean isPwdRight = passwordEncoder.matches(password, encodedPassword);
             if (isPwdRight) {
                 Optional<AccountEntity> account = accountRepository.findOneByUserNameAndPassword(loginDTO.getUsername(), encodedPassword);
                 if (account.isPresent()) {
@@ -178,5 +180,11 @@ public class AccountImpl implements AccountService {
             phoneNumber = "0" + phoneNumber;
         }
         return phoneNumber;
+    }
+
+    @Override
+    public String deleteHardAccount(int id) {
+        accountRepository.deleteById(id);
+        return "Successful";
     }
 }

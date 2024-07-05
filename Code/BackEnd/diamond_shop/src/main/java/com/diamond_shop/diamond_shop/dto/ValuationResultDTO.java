@@ -6,24 +6,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ValuationResultDTO {
-    private int id;
     private String origin;
     private String shape;
-    private BigDecimal carat_weight;
+    private BigDecimal carat;
     private String color;
     private String cut;
     private String clarity;
-    private String measurements;
-    private String polish;
     private String symmetry;
+    private String polish;
     private String fluorescence;
-    private String proportions;
+    private String measurements;
+    private BigDecimal diamondTable;
+    private BigDecimal depth;
+    private BigDecimal lengthToWidthRatio;
     private BigDecimal price;
 }

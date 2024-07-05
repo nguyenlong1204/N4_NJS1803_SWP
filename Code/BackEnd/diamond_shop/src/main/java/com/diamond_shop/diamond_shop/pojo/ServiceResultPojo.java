@@ -10,7 +10,7 @@ import lombok.Setter;
 public class ServiceResultPojo {
     private int id;
     private String name;
-    private String price;
-    private String time;
+    private int price;
+    private int time;
     private String statisticName;
 }

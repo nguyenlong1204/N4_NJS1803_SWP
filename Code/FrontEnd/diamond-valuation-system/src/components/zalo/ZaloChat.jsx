@@ -1,7 +1,7 @@
 import { Container, Image, Link, Tooltip } from "@chakra-ui/react";
 import React from "react";
-export default function ZaloChat({ customerPhone }) {
-  const customerZalo = `https://zalo.me/${customerPhone}`;
+export default function ZaloChat({ phone }) {
+  const customerZalo = `https://zalo.me/${phone}`;
   return (
     <Link href={customerZalo} isExternal>
       <Container className="zalo-container">

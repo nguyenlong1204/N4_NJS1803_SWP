@@ -76,7 +76,7 @@ export default function AdminUpdateUsers({
               isSubmitting,
             }) => (
               <Form onSubmit={handleSubmit}>
-                <FormControl>
+                {/* <FormControl>
                   <FormLabel>Role</FormLabel>
                   <Select
                     name="role"
@@ -92,7 +92,7 @@ export default function AdminUpdateUsers({
                     <option value="5">Customer</option>
                     <option value="6">Guest</option>
                   </Select>
-                </FormControl>
+                </FormControl> */}
                 <FormControl
                   isRequired
                   isInvalid={

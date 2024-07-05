@@ -1,101 +1,109 @@
 package com.diamond_shop.diamond_shop.service;
 
-import com.diamond_shop.diamond_shop.dto.ValuationRequestDTO;
-import com.diamond_shop.diamond_shop.dto.ViewRequestDTO;
-import com.diamond_shop.diamond_shop.entity.AccountEntity;
-import com.diamond_shop.diamond_shop.entity.ProcessRequestEntity;
-import com.diamond_shop.diamond_shop.entity.ServiceEntity;
-import com.diamond_shop.diamond_shop.entity.ValuationRequestEntity;
+import com.diamond_shop.diamond_shop.entity.*;
 import com.diamond_shop.diamond_shop.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class ValuationRequestImpl implements ValuationRequestService {
-    @Autowired
-    private ValuationRequestRepository valuationRequestRepository;
-    @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
-    private ServiceRepository serviceRepository;
-    @Autowired
-    ProcessRequestRepository processRequestRepository;
+    private final PendingRepository pendingRepository;
+    private final PaymentRepository paymentRepository;
+    private final ServiceRepository serviceRepository;
+    private final ValuationRequestRepository valuationRequestRepository;
+    private final ProcessRequestRepository processRequestRepository;
 
-    @Autowired
-    ProcessResultRepository processResultRepository;
+    public ValuationRequestImpl(
+            PendingRepository pendingRepository,
+            PaymentRepository paymentRepository,
+            ServiceRepository serviceRepository,
+            ValuationRequestRepository valuationRequestRepository,
+            ProcessRequestRepository processRequestRepository) {
+        this.pendingRepository = pendingRepository;
+        this.paymentRepository = paymentRepository;
+        this.serviceRepository = serviceRepository;
+        this.valuationRequestRepository = valuationRequestRepository;
+        this.processRequestRepository = processRequestRepository;
+    }
 
     @Override
-    public int makeRequest(ValuationRequestDTO valuationRequestDTO) {
+    public String makeRequest(int pendingId, int serviceId, int paymentId) {
 
-        AccountEntity acc = accountRepository.findByUserName(valuationRequestDTO.getUsername());
-        ServiceEntity service = serviceRepository.findById(valuationRequestDTO.getServiceId()).orElse(null);
+        PendingRequestsEntity pending = pendingRepository.findById(pendingId).orElse(null);
+        ServiceEntity service = serviceRepository.findById(serviceId).orElse(null);
+        PaymentEntity payment = paymentRepository.findById(paymentId).orElse(null);
 
-        if (acc == null)
-            return -1;
+        if (pending == null)
+            return "Pending not found";
         else if (service == null)
-            return -1;
+            return "Service not found";
+        else if (payment == null)
+            return "payment not found";
 
-        Date createdDate = valuationRequestDTO.getCreatedDate() != null ? valuationRequestDTO.getCreatedDate() : new Date();
+        Date createdDate = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(createdDate);
-        calendar.add(Calendar.DAY_OF_MONTH, Integer.parseInt(service.getTime()));
+        calendar.add(Calendar.DAY_OF_MONTH, service.getTime());
         Date finishedDate = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        calendar.add(Calendar.DAY_OF_MONTH, 30);
         Date sealingDate = calendar.getTime();
         ValuationRequestEntity valuationRequestEntity = new ValuationRequestEntity(
-//                valuationRequestDTO.getRequestId(),
-                acc,
+                pending,
                 service,
+                payment,
                 createdDate,
                 finishedDate,
-                sealingDate,
-                valuationRequestDTO.getDescription()
+                sealingDate
         );
         valuationRequestRepository.save(valuationRequestEntity);
-        return valuationRequestEntity.getId();
+        return "Create successfully";
     }
 
     @Override
-    public Page<ValuationRequestEntity> viewRequest(String search, int pageId, String filter) {
-        int pageSize = 5;
-        int pageNumber = --pageId;
-        if (search.isEmpty() && filter.isEmpty())
-            return valuationRequestRepository.findAll(PageRequest.of(pageNumber, pageSize, Sort.by("id")));
-        else if (!search.isEmpty() && filter.isEmpty())
-            return valuationRequestRepository.searchNonFilter(PageRequest.of(pageNumber, pageSize, Sort.by("id")), search);
-        else {
-            switch (filter) {
-                case "customerName":
-                    return valuationRequestRepository.searchCustomerName(PageRequest.of(pageNumber, pageSize, Sort.by(filter)), search);
-                case "serviceName":
-                    return valuationRequestRepository.searchServiceName(PageRequest.of(pageNumber, pageSize, Sort.by(filter)), search);
-                case "description":
-                    return valuationRequestRepository.searchDescription(PageRequest.of(pageNumber, pageSize, Sort.by(filter)), search);
-            }
-        }
-        return null;
+    public Optional<ValuationRequestEntity> getValuationRequestByPendingRequestId(int pendingId) {
+        return valuationRequestRepository.findByPendingRequestId(pendingId);
     }
 
     @Override
-    public String checkFinishDate(int valuationRequestId) {
-        ValuationRequestEntity valuationRequest = valuationRequestRepository.findById(valuationRequestId);
-        if (valuationRequest == null)
-            return "Not found valuation request";
+    public String checkFinishDateByProcessRequestId(int processRequestId) {
+        Optional<ValuationRequestEntity> valuationRequest = valuationRequestRepository.findByProcessRequestId(processRequestId);
+        if (valuationRequest.isEmpty())
+            return "Valuation request not found";
         Date currentDate = new Date();
-        if (currentDate.after(valuationRequest.getFinishDate())) {
-            ProcessRequestEntity processRequest = processRequestRepository.findByValuationRequestId(valuationRequestId);
-            if (!processRequest.getName().equals("Finished")) {
-                processRequest.setName("Finished");
-                processRequestRepository.save(processRequest);
-                return "Finish request";
+        if (currentDate.after(valuationRequest.get().getFinishDate())) {
+            Optional<ProcessRequestEntity> processRequest = processRequestRepository.findById(processRequestId);
+            if (processRequest.isEmpty())
+                return "Process request not found";
+            if (!processRequest.get().getStatus().equals("Finished")
+                    && !processRequest.get().getStatus().equals("Done")
+                    && !processRequest.get().getStatus().equals("Sealed")) {
+                processRequest.get().setStatus("Finished");
+                processRequestRepository.save(processRequest.get());
+                return "Finished request";
             } else return "Already finished request";
         } else return "Not finish";
     }
 
+    @Override
+    public String checkSealedDateByProcessRequestId(int processRequestId) {
+        Optional<ValuationRequestEntity> valuationRequest = valuationRequestRepository.findByProcessRequestId(processRequestId);
+        if (valuationRequest.isEmpty())
+            return "Valuation request not found";
+
+        Date currentDate = new Date();
+        if (currentDate.after(valuationRequest.get().getSealingDate())) {
+            Optional<ProcessRequestEntity> processRequest = processRequestRepository.findById(processRequestId);
+            if (processRequest.isEmpty())
+                return "Process request not found";
+            if (!processRequest.get().getStatus().equals("Sealed")
+                    && !processRequest.get().getStatus().equals("Done")) {
+                processRequest.get().setStatus("Sealed");
+                processRequestRepository.save(processRequest.get());
+                return "Sealed request";
+            } else return "Already sealed request";
+        } else return "Not get sealed date yet";
+    }
 }   

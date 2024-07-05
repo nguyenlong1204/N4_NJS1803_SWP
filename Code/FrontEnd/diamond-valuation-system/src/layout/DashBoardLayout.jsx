@@ -1,29 +1,30 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import SideBar from "./sidebar/SideBar";
-import DashBoard from "../pages/dashboard/consulting/ConsultingDashBoard";
-import { Box, Flex } from "@chakra-ui/react";
-import SideBarAdmin from "./sidebar/SideBarAdmin";
-import SideBarManager from "./sidebar/SideBarManager";
-import SideBarStaff from "./sidebar/SideBarConsultingStaff";
-import SideBarConsultingStaff from "./sidebar/SideBarConsultingStaff";
-import SideBarValuationStaff from "./sidebar/SideBarValuationStaff";
+import { Box, Container, Flex, useColorModeValue } from "@chakra-ui/react";
+import Logout from "../pages/logout/Logout";
+import { useNavigate } from "react-router-dom";
 
 export default function DashBoardLayout({ children }) {
-    let users = {
-        role: 5, // Test dashboard role
-    };
-    return (
-        <Flex width={"100%"} height={"100vh"} bg={"rgb(243 244 246)"}>
-            <Box w="256px">
-                {users.role === 1 && <SideBarAdmin />}
-                {users.role === 2 && <SideBarManager />}
-                {users.role === 3 && <SideBarConsultingStaff />}
-                {users.role === 4 && <SideBarValuationStaff />}
-                {users.role === 5 && <SideBar />}
-            </Box>
-            <Box flex="1" bg="#fff" px={5} pt={5} mt={5}>
-                {children}
-            </Box>
-        </Flex>
-    );
+  const bgColor = useColorModeValue("white", "gray.800");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem("user") === null) {
+      navigate("/");
+    }
+  });
+  return (
+    <>
+      <Flex position={"fixed"} top={5} right={5}>
+        <Logout />
+      </Flex>
+      <Flex width={"100vw"} height={"100vh"} bg={bgColor} overflowY={"hidden"}>
+        <Box w="256px">
+          <SideBar />
+        </Box>
+        <Box flex="1" bg={bgColor} px={5} pt={"120px"}>
+          {children}
+        </Box>
+      </Flex>
+    </>
+  );
 }

@@ -1,12 +1,14 @@
-import { Divider, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Divider, Flex, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Title from "../../components/Title";
-import ServiceCard from "../../components/ServiceCard";
+import ServiceCard from "./ServiceCard";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 export default function DiamondService() {
   const bgColor = useColorModeValue("white", "black");
-
+  const location = useLocation();
+  console.log(location?.state?.pendingRequestId);
   const [serviceResponse, setServiceResponse] = useState([]);
   useEffect(() => {
     fetchServices();
@@ -16,7 +18,7 @@ export default function DiamondService() {
   function fetchServices() {
     try {
       axios
-        .get("http://localhost:8081/api/diamond/service")
+        .get(`${import.meta.env.VITE_REACT_APP_BASE_URL}/api/service/get/all`)
         .then(function (response) {
           setServiceResponse(response.data);
           console.log(response.data);
@@ -51,12 +53,13 @@ export default function DiamondService() {
         width={"80vw"}
       />
       <Divider m={"20px 0 20px 0"} />
-      <Flex direction={{ base: "column", md: "row", lg: "row" }} gap={20}>
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
         {serviceResponse.map((item, index) => {
           return (
             <ServiceCard
               key={index}
               serviceId={item.id}
+              pendingRequestId={location?.state?.pendingRequestId}
               type={item.name.toUpperCase()}
               price={item.price}
               time={item.time}
@@ -65,7 +68,7 @@ export default function DiamondService() {
             />
           );
         })}
-      </Flex>
+      </SimpleGrid>
     </Flex>
   );
 }

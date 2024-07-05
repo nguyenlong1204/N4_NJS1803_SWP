@@ -1,8 +1,10 @@
 package com.diamond_shop.diamond_shop.service;
 
 import com.diamond_shop.diamond_shop.entity.*;
-import com.diamond_shop.diamond_shop.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.diamond_shop.diamond_shop.repository.AccountRepository;
+import com.diamond_shop.diamond_shop.repository.ProcessResultRepository;
+import com.diamond_shop.diamond_shop.repository.RoleRepository;
+import com.diamond_shop.diamond_shop.repository.ValuationResultRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,28 +14,26 @@ import java.util.List;
 @Service
 public class ProcessResultImpl implements ProcessResultService {
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final ProcessResultRepository processResultRepository;
+    private final RoleRepository roleRepository;
+    private final AccountRepository accountRepository;
+    private final ValuationResultRepository valuationResultRepository;
 
-    @Autowired
-    private ValuationRequestRepository valuationRequestRepository;
-
-    @Autowired
-    private AccountRepository accountRepository;
-
-    @Autowired
-    private ProcessRequestRepository processRequestRepository;
-
-    @Autowired
-    private ProcessResultRepository processResultRepository;
-
-    @Autowired
-    private ValuationResultRepository valuationResultRepository;
-
+    public ProcessResultImpl(
+            ProcessResultRepository processResultRepository,
+            RoleRepository roleRepository,
+            AccountRepository accountRepository,
+            ValuationResultRepository valuationResultRepository) {
+        this.processResultRepository = processResultRepository;
+        this.roleRepository = roleRepository;
+        this.accountRepository = accountRepository;
+        this.valuationResultRepository = valuationResultRepository;
+    }
 
     @Override
-    public Page<ProcessResultEntity> viewProcessResult(int valuationStaff) {
-        return processResultRepository.findByStaffId(PageRequest.of(0, 5), valuationStaff);
+    public Page<ProcessResultEntity> getAllByValuationStaffId(int page, int valuationStaffId) {
+        int pageSize = 5, pageNumber = --page;
+        return processResultRepository.findAllByValuationStaffId(PageRequest.of(pageNumber, pageSize), valuationStaffId);
     }
 
     @Override
@@ -48,21 +48,13 @@ public class ProcessResultImpl implements ProcessResultService {
 
 
         AccountEntity leastOccupiedValuationStaff = getLeastOccupiedValuationStaff(accountEntities);
-        ValuationResultEntity valuationResult = valuationResultRepository.findByValuationRequestId(p.getValuationRequestId().getId());
-        ProcessRequestEntity processRequest = processRequestRepository.findByStaffIdAndValuationRequestId(p.getStaffId().getId(), p.getValuationRequestId().getId());
+        ValuationResultEntity valuationResult = valuationResultRepository.findByValuationRequestId(p.getPendingRequestId().getValuationRequestEntity().getId());
         ProcessResultEntity processResult = new ProcessResultEntity(
                 leastOccupiedValuationStaff,
                 valuationResult,
-                processRequest,
                 "Not resolved yet");
         processResultRepository.save(processResult);
         return "Task assigned successfully!";
-    }
-
-    @Override
-    public void valuateDiamondProduct() {
-        // TODO Auto-generated method stub
-
     }
 
     public AccountEntity getLeastOccupiedValuationStaff(List<AccountEntity> valuationStaff) {

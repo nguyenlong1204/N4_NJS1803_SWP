@@ -1,22 +1,24 @@
 package com.diamond_shop.diamond_shop.dto;
 
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
+@AllArgsConstructor
 public class DiamondCheckRequestDTO {
-    private final String gradingLab;
-    private final String carat;
-    private final String shape;
-    private final String color;
-    private final String clarity;
-    private final String cut;
-    public DiamondCheckRequestDTO(String gradingLab, String carat, String shape, String color, String clarity, String cut) {
-        this.gradingLab = gradingLab;
-        this.carat = carat;
-        this.shape = shape;
-        this.color = color;
-        this.clarity = clarity;
-        this.cut = cut;
-    }
-
+    @NotNull
+    String gradingLab;
+    @NotNull
+    String carat;
+    @NotNull
+    String shape;
+    @NotNull
+    String color;
+    @NotNull
+    String clarity;
+    @NotNull
+    String cut;
 }

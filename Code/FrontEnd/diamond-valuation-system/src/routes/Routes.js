@@ -15,40 +15,28 @@ import HomePage from "../pages/Home/Home.jsx";
 import Login from "../pages/login/Login.jsx";
 import Logout from "../pages/logout/Logout.jsx";
 import Prices from "../pages/prices/Prices.jsx";
-import Search from "../pages/Search/Search.jsx";
 import Error from "../pages/error/Error.jsx";
-import ValuationStaffPage from "../pages/valuationStaff/ValuationStaffPage.jsx";
 import DashBoardLayout from "../layout/DashBoardLayout.jsx";
-import ConsultingDashBoard from "../pages/dashboard/consulting/ConsultingDashBoard.jsx";
-import ConsultingAppointment from "../pages/dashboard/consulting/ConsultingAppointment.jsx";
-import ConsultingNotifications from "../pages/dashboard/consulting/ConsultingNotifications.jsx";
-import ConsultingSearch from "../pages/dashboard/consulting/ConsultingSearch.jsx";
-import ConsultingRequest from "../pages/dashboard/consulting/ConsultingRequest.jsx";
-import AdminPage from "../pages/admin/AdminPage.jsx";
 import DashBoard from "../pages/dashboard/DashBoard.jsx";
 import DashBoardNotification from "./../pages/dashboard/DashBoardNotification";
 import DashBoardPrices from "./../pages/dashboard/DashBoardPrices";
 import DashBoardAppoint from "./../pages/dashboard/DashBoardAppoint";
 import DashBoardSearch from "./../pages/dashboard/DashBoardSearch";
 import DashBoardRequest from "./../pages/dashboard/DashBoardRequest";
-import ManagePage from "../pages/manager/ManagePage.jsx";
+import AboutUs from "../pages/aboutUs/AboutUs.jsx";
+import DashBoardSetting from "../pages/dashboard/DashBoardSetting.jsx";
+import DashBoardTransaction from "../pages/dashboard/DashBoardTransaction.jsx";
+import PendingRequestTable from "../pages/dashboard/table/PendingRequestTable.jsx";
+import { layout } from "@chakra-ui/react";
+import ProcessRequestTable from "../pages/dashboard/table/ProcessRequestTable.jsx";
+import SealingLetterTable from "../pages/dashboard/table/SealingLetterTable.jsx";
+import CommitmentTable from "../pages/dashboard/table/CommitmentTable.jsx";
+import ValuationStaffDashboard from "../pages/dashboard/valuation/ValuationStaffDashBoard.jsx";
 
 const ALlRoutes = [
   {
     path: routes.home,
     component: HomePage,
-  },
-  {
-    path: routes.admin,
-    component: AdminPage,
-  },
-  {
-    path: routes.manager,
-    component: ManagePage,
-  },
-  {
-    path: routes.search,
-    component: Search,
   },
   {
     path: routes.diamondCheck,
@@ -105,6 +93,10 @@ const ALlRoutes = [
     component: Error,
     layout: null,
   },
+  {
+    path: routes.aboutUs,
+    component: AboutUs,
+  },
 
   {
     path: routes.diamondValuationRequest,
@@ -147,37 +139,6 @@ const ALlRoutes = [
     path: routes.logout,
     component: Logout,
   },
-  {
-    path: routes.valuationStaff,
-    component: ValuationStaffPage,
-  },
-  //DashBoard => add layout: DashBoardLayout
-  // Consulting Staff
-  {
-    path: routes.consulting_dashboard,
-    component: ConsultingDashBoard,
-    layout: DashBoardLayout,
-  },
-  {
-    path: routes.consulting_dasboardNotification,
-    component: ConsultingNotifications,
-    layout: DashBoardLayout,
-  },
-  {
-    path: routes.consulting_dashboardAppoint,
-    component: ConsultingAppointment,
-    layout: DashBoardLayout,
-  },
-  {
-    path: routes.consulting_dashboardSearch,
-    component: ConsultingSearch,
-    layout: DashBoardLayout,
-  },
-  {
-    path: routes.consulting_dashboardRequest,
-    component: ConsultingRequest,
-    layout: DashBoardLayout,
-  },
   // Customer
   {
     path: routes.dashboard,
@@ -200,6 +161,11 @@ const ALlRoutes = [
     layout: DashBoardLayout,
   },
   {
+    path: routes.dashboardTransaction,
+    component: DashBoardTransaction,
+    layout: DashBoardLayout,
+  },
+  {
     path: routes.dashboardSearch,
     component: DashBoardSearch,
     layout: DashBoardLayout,
@@ -209,6 +175,35 @@ const ALlRoutes = [
     component: DashBoardRequest,
     layout: DashBoardLayout,
   },
+  {
+    path: routes.dashboardSetting,
+    component: DashBoardSetting,
+  },
+  {
+    path: routes.pendingRequest,
+    component: PendingRequestTable,
+    layout: DashBoardLayout,
+  },
+  {
+    path: routes.processRequest,
+    component: ProcessRequestTable,
+    layout: DashBoardLayout,
+  },
+  {
+    path: routes.sealingLetter,
+    component: SealingLetterTable,
+    layout: DashBoardLayout,
+  },
+  {
+    path: routes.commitment,
+    component:CommitmentTable,
+    layout: DashBoardLayout,
+  },
+  {
+    path:routes.valuationDiamond,
+    component:ValuationStaffDashboard,
+    layout:DashBoardLayout
+  }
 ];
 
 export { ALlRoutes };

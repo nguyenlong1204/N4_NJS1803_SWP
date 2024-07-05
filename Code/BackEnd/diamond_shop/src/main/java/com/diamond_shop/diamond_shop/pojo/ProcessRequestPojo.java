@@ -4,25 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @AllArgsConstructor
 public class ProcessRequestPojo {
+    private int id;
+    private String status;
+    private String description;
+    private int pendingRequestId;
     private int consultingStaffId;
     private String consultingStaffName;
-    private int valuationRequestId;
-    private String type;
+    private String consultingStaffPhone;
+    private int customerId;
     private String customerName;
     private String customerEmail;
     private String customerPhone;
-    private String serviceName;
-    private String servicePrice;
-    private String serviceTime;
-    private String statisticName;
-    private Date createdDate;
-    private Date finishedDate;
-    private Date sealingDate;
-    private String description;
 }

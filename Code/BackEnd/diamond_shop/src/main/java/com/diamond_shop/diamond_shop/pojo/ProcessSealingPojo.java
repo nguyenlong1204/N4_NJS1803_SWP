@@ -17,6 +17,9 @@ public class ProcessSealingPojo {
     private int sealingLetterId;
     private String sealingLetterContent;
     private Date valuationRequestSealingDate;
+    private Date createSealingLetterDate;
+    private String valuatedDiamondId;
+    private String managerName;
     private int customerId;
     private String customerName;
     private int serviceId;
