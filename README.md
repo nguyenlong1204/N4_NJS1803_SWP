@@ -55,8 +55,8 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 | **Nguyễn Đức Long**     | UC08 - Evaluation through criteria BE                     |
 |                         | UC09: Valuation through request BE                        |
 |  **Nguyễn Văn Hưởng**   | UC06: View result valuation                               |
-|                         | UC14: Declare Valuation Parameters                        |
 |                         | UC16: Receive Samples                                     |
+|                         | UC14: Declare Valuation Parameters                         |
 | **Lê Đức Thành**        | UC10: Approve the sealed minutes                          |
 |                         | UC11: Approve the commitment letter                       |
 |                         | UC19: Synchronize Price Data                              |
