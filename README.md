@@ -45,8 +45,8 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 | **Nguyễn Văn Hưởng**    | UC07: Contact                                             |
 | **Lê Đức Thành**        | UC03: Change password                                     |                     
 | **Nguyễn Thị Thu Hoài** | UC02: Register                                            |
-| **Nguyễn Khánh Trình**  | UC09: Valuation through request FE                        |
-|                         | UC12: Declare Pricing list                                |
+| **Nguyễn Khánh Trình**  | UC09: Valuation through request                           |
+|                         | UC17: Prepare Valuation Receipts                          |
 
 ## Sprint 2
 
@@ -68,6 +68,6 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 |                         | UC21: Print Valuation Paper                               |
 |                         | UC22: Evaluate Samples                                    |
 | **Nguyễn Khánh Trình**  | UC08 - Evaluation through criteria FE                     |
+|                         | UC12: Declare Pricing list                                |
 |                         | UC13: Declare service performance time                    |
-|                         | UC17: Prepare Valuation Receipts                          |
 |                         | UC24: Create a Sealing Record                             |
