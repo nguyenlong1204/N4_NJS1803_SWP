@@ -35,7 +35,7 @@ export default function ServiceCard({
         .get(`${import.meta.env.VITE_REACT_APP_BASE_URL}/api/vnpay/create`, {
           params: {
             amount: `${price}`,
-            orderInfo: "Thanh toan don hang",
+            orderInfo: "Paid",
             orderType: "Other",
             serviceId: serviceId,
             customerId: user.userAuth.id,

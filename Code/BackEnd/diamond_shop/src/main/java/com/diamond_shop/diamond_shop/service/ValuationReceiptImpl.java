@@ -4,22 +4,18 @@ import com.diamond_shop.diamond_shop.entity.ValuationReceiptEntity;
 import com.diamond_shop.diamond_shop.entity.ValuationRequestEntity;
 import com.diamond_shop.diamond_shop.repository.ValuationReceiptRepository;
 import com.diamond_shop.diamond_shop.repository.ValuationRequestRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ValuationReceiptImpl implements ValuationReceiptService {
 
     private final ValuationReceiptRepository valuationReceiptRepository;
     private final ValuationRequestRepository valuationRequestRepository;
-
-    public ValuationReceiptImpl(ValuationReceiptRepository valuationReceiptRepository,
-                                ValuationRequestRepository valuationRequestRepository) {
-        this.valuationReceiptRepository = valuationReceiptRepository;
-        this.valuationRequestRepository = valuationRequestRepository;
-    }
 
     @Override
     public String createReceipt(int valuationRequestId) {

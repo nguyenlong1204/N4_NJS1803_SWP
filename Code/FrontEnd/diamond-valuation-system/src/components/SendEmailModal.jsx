@@ -37,6 +37,7 @@ export default function SendEmailModal({ sendEmailModal, message }) {
           toast({
             title: "Email sent successfully",
             description: "Please check your email to see your valuation result",
+            position: "top-right",
             status: "success",
             duration: 3000,
             isClosable: true,
@@ -47,6 +48,7 @@ export default function SendEmailModal({ sendEmailModal, message }) {
       toast({
         title: "Failed to send email",
         description: "Please try again later",
+        position: "top-right",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -74,7 +76,7 @@ export default function SendEmailModal({ sendEmailModal, message }) {
               console.log(values);
             }}
           >
-            {({ values, handleChange, handleBlur, isSubmitting }) => (
+            {({ values, handleChange, isSubmitting }) => (
               <Form ref={emailForm} onSubmit={sendEmail}>
                 <Flex direction={"column"} gap={5}>
                   <FormControl isRequired>
@@ -83,7 +85,6 @@ export default function SendEmailModal({ sendEmailModal, message }) {
                       name="user_email"
                       type="email"
                       onChange={handleChange}
-                      onBlur={handleBlur}
                       value={values.user_email}
                     />
                   </FormControl>

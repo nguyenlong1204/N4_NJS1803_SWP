@@ -1,151 +1,162 @@
-CREATE DATABASE DiamondValuationSystem
-use DiamondValuationSystem
+create database diamond
+use diamond
 
-CREATE TABLE Roles(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Name NVARCHAR(255) NOT NULL
-);
-CREATE TABLE Users(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Role_id BIGINT NOT NULL,
-    Username NVARCHAR(255) NOT NULL,
-    Password NVARCHAR(255) NOT NULL,
-    Fullname NVARCHAR(255) NOT NULL,
-    Email NVARCHAR(255) NULL,
-    Phone_number NVARCHAR(255) NULL,
-    Address NVARCHAR(255) NULL,
-	FOREIGN KEY (Role_id) REFERENCES Roles(Id)
-);
-
-CREATE TABLE Wallets(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Customer_id BIGINT NOT NULL,
-    Balance NVARCHAR(255) NOT NULL,
-    Update_time NVARCHAR(255) NOT NULL,
-	FOREIGN KEY (Customer_id) REFERENCES Users(Id)
-);
-CREATE TABLE Service_statistics(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Name NVARCHAR(255) NOT NULL
-);
-CREATE TABLE Services(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Name NVARCHAR(255) NOT NULL,
-    Price NVARCHAR(255) NOT NULL,
-    Time NVARCHAR(255) NOT NULL,
-    Statistic_id BIGINT NOT NULL,
-	FOREIGN KEY (Statistic_id) REFERENCES Service_statistics(Id)
-);
-CREATE TABLE Valuation_requests(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Customer_id BIGINT NOT NULL,
-    Service_id BIGINT NOT NULL,
-    Created_date DATETIME NOT NULL,
-    Finish_date DATETIME,
-    Sealing_date DATETIME NOT NULL,
-    Description NVARCHAR(255) NULL,
-	FOREIGN KEY (Customer_id) REFERENCES Users(Id),
-	FOREIGN KEY (Service_id) REFERENCES Services(Id)
-);
-CREATE TABLE Request_images(
-    Id NVARCHAR(255) PRIMARY KEY,
-    Valuation_request_id BIGINT NOT NULL,
-	FOREIGN KEY (Valuation_request_id) REFERENCES Valuation_requests(Id)
-);
-CREATE TABLE Process_requests(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Consulting_staff_id BIGINT NOT NULL,
-    Valuation_request_id BIGINT NOT NULL,
-    Name NVARCHAR(255) NOT NULL,
-	FOREIGN KEY (Consulting_staff_id) REFERENCES Users(Id),
-	FOREIGN KEY (Valuation_request_id) REFERENCES Valuation_requests(Id)
-);
-CREATE TABLE Valuation_results(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Valuation_request_id BIGINT NOT NULL,
-    Created_date DATETIME NOT NULL,
-    Origin NVARCHAR(255) NULL,
-    Shape NVARCHAR(255) NULL,
-    Carat_weight DECIMAL(3,1) NULL,
-    Color NVARCHAR(255) NULL,
-    Cut NVARCHAR(255) NULL,
-    Clarity NVARCHAR(255) NULL,
-    Measurements NVARCHAR(255) NULL,
-    Polish NVARCHAR(255) NULL,
-    Symmetry NVARCHAR(255) NULL,
-    Fluorescence NVARCHAR(255) NULL,
-    Proportions NVARCHAR(255) NULL,
-    Price DECIMAL(5,2) NULL,
-	FOREIGN KEY (Valuation_request_id) REFERENCES Valuation_requests(Id)
-);
-CREATE TABLE Sealing_letters(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Valuation_request_id BIGINT NOT NULL,
-    Created_date DATETIME NOT NULL,
-    Content NVARCHAR(255) NOT NULL,
-	FOREIGN KEY (Valuation_request_id) REFERENCES Valuation_requests(Id)
-);
-CREATE TABLE Process_sealing_letters(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Sealing_letter_id BIGINT NOT NULL,
-    Manager_id BIGINT NOT NULL,
-    Status NVARCHAR(255) NOT NULL,
-    FOREIGN KEY (Sealing_letter_id) REFERENCES Sealing_letters(Id),
-    FOREIGN KEY (Manager_id) REFERENCES Users(Id)
-);
-CREATE TABLE Valuated_diamonds(
-    Id NVARCHAR(25) PRIMARY KEY,
-    Valuation_result_id BIGINT NOT NULL,
-    Created_date DATETIME NOT NULL,
-	FOREIGN KEY (Valuation_result_id) REFERENCES Valuation_results(Id)
-);
-
-CREATE TABLE Commitments(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Valuation_request_id BIGINT NOT NULL,
-    Created_date DATETIME NOT NULL,
-    Content NVARCHAR(255) NOT NULL,
-	FOREIGN KEY (Valuation_request_id) REFERENCES Valuation_requests(Id)
-);
-
-CREATE TABLE Process_commitments(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Commitment_id BIGINT NOT NULL,
-    Manager_id BIGINT NOT NULL,
-    Status NVARCHAR(255) NOT NULL,
-    FOREIGN KEY (Commitment_id) REFERENCES Commitments(Id),
-    FOREIGN KEY (Manager_id) REFERENCES Users(Id)
-);
-
-CREATE TABLE Payments(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Customer_id BIGINT NOT NULL,
-    Valuation_request_id BIGINT NOT NULL,
-    Created_date DATETIME NOT NULL,
-    Type NVARCHAR(255) NOT NULL,
-	FOREIGN KEY (Customer_id) REFERENCES Users(Id),
-	FOREIGN KEY (Valuation_request_id) REFERENCES Valuation_requests(Id)
-);
-CREATE TABLE Valuation_receipts(
-    Id BIGINT PRIMARY KEY IDENTITY(1,1),
-    Valuation_request_id BIGINT NOT NULL,
-    Created_date DATETIME NOT NULL,
-	FOREIGN KEY (Valuation_request_id) REFERENCES Valuation_requests(Id)
-);
-
-CREATE TABLE Process_results(
-	Id BIGINT PRIMARY KEY IDENTITY(1,1),
-	Valuation_staff_id BIGINT NOT NULL,
-	Valuation_result_id BIGINT NOT NULL,
-	Process_request_id BIGINT NOT NULL,
-	Name NVARCHAR(255) NOT NULL,
-	FOREIGN KEY (Valuation_staff_id) REFERENCES Users(Id),
-	FOREIGN KEY (Valuation_result_id) REFERENCES Valuation_results(Id),
-	FOREIGN KEY (Process_request_id) REFERENCES Process_requests(Id),
+CREATE TABLE roles(
+	id BIGINT PRIMARY KEY IDENTITY(1,1),
+	name NVARCHAR(25)
 )
 
-CREATE TABLE Valuated_diamond_images(
-	Id NVARCHAR(50) PRIMARY KEY,
-	Valuated_diamond_id NVARCHAR(25) NOT NULL
-	FOREIGN KEY (Valuated_diamond_id) REFERENCES Valuated_diamonds(Id),
+CREATE TABLE users(
+	id BIGINT PRIMARY KEY IDENTITY(1,1),
+	role_id BIGINT,
+	username NVARCHAR(50) NOT NULL,
+	password NVARCHAR(255) NOT NULL,
+	full_name NVARCHAR(50),
+	email NVARCHAR(50) NOT NULL,
+	phone_number NVARCHAR(10),
+	address NVARCHAR(255),
+	is_active BIT,
+	activate_code VARCHAR(255),
+	FOREIGN KEY (role_id) REFERENCES roles(id)
 )
+
+CREATE TABLE pending_requests(
+	id BIGINT PRIMARY KEY IDENTITY(1,1),
+	customer_id BIGINT,
+	description NVARCHAR(255),
+	created_date DATETIME,
+	FOREIGN KEY (customer_id) REFERENCES users(id) on DELETE SET NULL
+)
+
+CREATE TABLE process_requests(
+	id BIGINT PRIMARY KEY IDENTITY(1,1),
+	consulting_staff_id BIGINT,
+	pending_request_id BIGINT,
+	status NVARCHAR(255)
+	FOREIGN KEY (consulting_staff_id) REFERENCES users(id),
+	FOREIGN KEY (pending_request_id) REFERENCES pending_requests(id)
+)
+
+CREATE TABLE payments(
+	id BIGINT PRIMARY KEY IDENTITY(1,1),
+	customer_id BIGINT,
+	created_date DATETIME,
+	bank NVARCHAR(20),
+	amount int,
+	transaction_no NVARCHAR(255),
+	order_info NVARCHAR(255),
+	FOREIGN KEY (customer_id) REFERENCES users(id) on DELETE SET NULL
+)
+
+CREATE TABLE service_statistics(
+	id BIGINT PRIMARY KEY IDENTITY(1,1),
+	name NVARCHAR(255)
+)
+
+CREATE TABLE services(
+	id BIGINT PRIMARY KEY IDENTITY(1,1),
+	name nvarchar(25),
+	price INT,
+	time INT,
+	service_statistic_id BIGINT,
+	FOREIGN KEY (service_statistic_id) REFERENCES service_statistics(id)
+)
+
+CREATE TABLE valuation_requests(
+	id BIGINT PRIMARY KEY IDENTITY(1,1),
+	pending_request_id BIGINT,
+	service_id BIGINT,
+	payment_id BIGINT,
+	created_date DATETIME,
+	finish_date DATETIME,
+	sealing_date DATETIME,
+	FOREIGN KEY (pending_request_id) REFERENCES pending_requests(id),
+	FOREIGN KEY (service_id) REFERENCES services(id),
+	FOREIGN KEY (payment_id) REFERENCES payments(id)
+)
+
+CREATE TABLE valuation_results(
+	id NVARCHAR(50) PRIMARY KEY,
+	valuation_request_id BIGINT,
+	created_date DATETIME,
+	origin NVARCHAR(25),
+	shape NVARCHAR(25),
+	carat DECIMAL(4,2),
+	color NVARCHAR(25),
+	cut NVARCHAR(25),
+	clarity NVARCHAR(25),
+	symmetry NVARCHAR(25),
+	polish NVARCHAR(25),
+	fluorescence NVARCHAR(25),
+	measurements NVARCHAR(50),
+	diamond_table DECIMAL(3,1),
+	depth DECIMAL(3,1),
+	length_to_width_ratio DECIMAL(3,1),
+	price DECIMAL(10,2)
+	FOREIGN KEY (valuation_request_id) REFERENCES valuation_requests(id)
+)
+
+CREATE TABLE valuation_receipts(
+	id BIGINT PRIMARY KEY IDENTITY(1,1),
+	valuation_request_id BIGINT,
+	created_date DATETIME,
+	FOREIGN KEY (valuation_request_id) REFERENCES valuation_requests(id)
+)
+
+CREATE TABLE valuation_result_images(
+	id NVARCHAR(255) PRIMARY KEY,
+	valuation_result_id NVARCHAR(50),
+	FOREIGN KEY (valuation_result_id) REFERENCES valuation_results(id)
+)
+
+CREATE TABLE process_results(
+	id BIGINT PRIMARY KEY IDENTITY(1,1),
+	valuation_staff_id BIGINT,
+	valuation_result_id NVARCHAR(50),
+	status NVARCHAR(25)
+	FOREIGN KEY (valuation_staff_id) REFERENCES users(id) ON DELETE SET NULL,
+	FOREIGN KEY (valuation_result_id) REFERENCES valuation_results(id)
+)
+
+CREATE TABLE sealing_letters(
+	id BIGINT PRIMARY KEY IDENTITY(1,1),
+	valuation_request_id BIGINT,
+	created_date DATETIME,
+	content NVARCHAR(255),
+	FOREIGN KEY (valuation_request_id) REFERENCES valuation_requests(id) ON DELETE SET NULL, 
+)
+
+CREATE TABLE commiment_letters(
+	id BIGINT PRIMARY KEY IDENTITY(1,1),
+	valuation_request_id BIGINT,
+	created_date DATETIME,
+	content NVARCHAR(255),
+	FOREIGN KEY (valuation_request_id) REFERENCES valuation_requests(id) ON DELETE SET NULL,
+)
+
+INSERT INTO roles(name)
+VALUES
+('Admin'),('Manager'),('Consulting staff'),('Valuation staff'),('Customer')
+
+INSERT INTO service_statistics(
+    NAME
+) VALUES(
+    'Origin, Shape, Carat Weight, Color, Cut, Clarity'
+),
+(
+    'Origin, Shape, Carat Weight, Color, Cut, Clarity, Measurement, Polish'
+),
+(
+    'Origin, Shape, Carat Weight, Color, Cut, Clarity, Measurement, Polish, Symmetry, Fluorescence, Proportion')
+
+INSERT INTO Services(Name, Price, Time, service_statistic_id) VALUES('Normal', 200000, 30, 1),('Pro', 500000, 20, 2), ('Premium',1000000, 10, 3)
+
+INSERT INTO users(role_id, username, password, full_name, email, phone_number, address,is_active)
+VALUES
+(5, 'tuan','$2a$10$cFVjD9HGp/AFH5meqqpNuem08iedeBNe6CD/lI09zgGTNG.yzt9Ni','NguyenTuan','tuan@gmail.com','0905038319','HCM',1),
+(3, 'consulting001','$2a$10$cFVjD9HGp/AFH5meqqpNuem08iedeBNe6CD/lI09zgGTNG.yzt9Ni','NguyenTuan','tu@gmail.com','0905038311','HCM',1),
+(4, 'valuation001','$2a$10$cFVjD9HGp/AFH5meqqpNuem08iedeBNe6CD/lI09zgGTNG.yzt9Ni','NguyenTuan','tun@gmail.com','0906038319','HCM',1),
+(2, 'manager','$2a$10$cFVjD9HGp/AFH5meqqpNuem08iedeBNe6CD/lI09zgGTNG.yzt9Ni','NguyenTuan','un@gmail.com','0905038314','HCM',1),
+(1, 'admin','$2a$10$cFVjD9HGp/AFH5meqqpNuem08iedeBNe6CD/lI09zgGTNG.yzt9Ni','NguyenTuan','n@gmail.com','0905038315','HCM',1)
+
+-- All Pass Tuan@2011

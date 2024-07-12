@@ -8,11 +8,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { UserContext } from "./GlobalContext/AuthContext";
 
 export default function UploadImage({ diamondId }) {
+  const user = useContext(UserContext);
   const navigate = useNavigate();
   const [selectedImages, setSelectedImages] = useState([]);
   const [isUploading, setIsUpLoading] = useState(false);
@@ -57,13 +59,15 @@ export default function UploadImage({ diamondId }) {
               {
                 id: data?.public_id,
                 valuationResultId: diamondId,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${user.userAuth.token}`,
+                },
               }
             )
             .then(function (response) {
               console.log(response.data);
-              setTimeout(() => {
-                navigate(0);
-              }, 1000);
             });
         }
       }
@@ -81,7 +85,7 @@ export default function UploadImage({ diamondId }) {
   };
   return (
     <>
-      <FormControl w={"auto"} isRequired>
+      <FormControl w={"auto"}>
         <FormLabel
           display={"inline-block"}
           cursor={"pointer"}
@@ -110,6 +114,7 @@ export default function UploadImage({ diamondId }) {
                 toast({
                   title: "Image already uploaded",
                   description: "This image has already been uploaded",
+                  position: "top-right",
                   status: "error",
                   duration: 3000,
                   isClosable: true,

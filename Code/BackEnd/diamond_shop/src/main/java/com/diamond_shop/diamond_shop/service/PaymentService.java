@@ -14,4 +14,6 @@ public interface PaymentService {
       String orderInfo
    );
    List<VNpayBillPojo> getTransaction(int id);
+
+   int getIncome();
 }

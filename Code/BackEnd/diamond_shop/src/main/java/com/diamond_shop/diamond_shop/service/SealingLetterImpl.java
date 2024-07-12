@@ -4,6 +4,7 @@ import com.diamond_shop.diamond_shop.entity.SealingLetterEntity;
 import com.diamond_shop.diamond_shop.entity.ValuationRequestEntity;
 import com.diamond_shop.diamond_shop.repository.SealingLetterRepository;
 import com.diamond_shop.diamond_shop.repository.ValuationRequestRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,16 +13,11 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class SealingLetterImpl implements SealingLetterService {
 
     private final SealingLetterRepository sealingLetterRepository;
     private final ValuationRequestRepository valuationRequestRepository;
-
-    public SealingLetterImpl(SealingLetterRepository sealingLetterRepository,
-                             ValuationRequestRepository valuationRequestRepository) {
-        this.sealingLetterRepository = sealingLetterRepository;
-        this.valuationRequestRepository = valuationRequestRepository;
-    }
 
     @Override
     public Page<SealingLetterEntity> getAllSealingLetters(int page) {

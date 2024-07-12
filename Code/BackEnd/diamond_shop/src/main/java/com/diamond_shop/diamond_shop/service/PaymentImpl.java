@@ -79,5 +79,15 @@ public class PaymentImpl implements PaymentService {
             result.add(pojo);
         }
         return result;
-    }   
+    }
+
+    @Override
+    public int getIncome() {
+        int total = 0;
+        List<Integer> allPaymentAmount = paymentRepository.getIncome();
+        for (Integer amount : allPaymentAmount) {
+            total += amount;
+        }
+        return total;
+    }
 }

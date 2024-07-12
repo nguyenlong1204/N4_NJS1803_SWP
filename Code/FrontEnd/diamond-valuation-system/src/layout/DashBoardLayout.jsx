@@ -14,12 +14,9 @@ export default function DashBoardLayout({ children }) {
   });
   return (
     <>
-      <Flex position={"fixed"} top={5} right={5}>
-        <Logout />
-      </Flex>
-      <Flex width={"100vw"} height={"100vh"} bg={bgColor} overflowY={"hidden"}>
+      <Flex width={"100vw"} minHeight={"100vh"} bg={bgColor}>
         <Box w="256px">
-          <SideBar />
+          <SideBar/>
         </Box>
         <Box flex="1" bg={bgColor} px={5} pt={"120px"}>
           {children}

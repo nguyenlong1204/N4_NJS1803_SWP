@@ -12,5 +12,6 @@ public class ServiceResultPojo {
     private String name;
     private int price;
     private int time;
+    private int statisticId;
     private String statisticName;
 }

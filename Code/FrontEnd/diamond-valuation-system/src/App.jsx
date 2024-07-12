@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ALlRoutes } from "./routes/Routes";
-import { Fragment } from "react";
+import { Fragment, Suspense } from "react";
 import MainLayout from "./layout/MainLayout";
+import LazyLoad from "./components/lazyload/LazyLoad";
 
 function App() {
   return (
@@ -23,7 +24,9 @@ function App() {
                   path={item.path}
                   element={
                     <Layout>
+                      <Suspense fallback={<LazyLoad />}>
                         <Page />
+                      </Suspense>
                     </Layout>
                   }
                 />

@@ -3,19 +3,20 @@ package com.diamond_shop.diamond_shop.controller;
 import com.diamond_shop.diamond_shop.dto.PendingRequestDTO;
 import com.diamond_shop.diamond_shop.entity.PendingRequestsEntity;
 import com.diamond_shop.diamond_shop.service.PendingRequestService;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api/pending-request")
+@RequiredArgsConstructor
 public class PendingRequestController {
     private final PendingRequestService pendingRequestService;
-
-    public PendingRequestController(PendingRequestService pendingRequestService) {
-        this.pendingRequestService = pendingRequestService;
-    }
 
     @GetMapping(path = "/get/all")
     public Page<PendingRequestsEntity> getAllPendingRequests(@RequestParam("page") int page) {
@@ -23,7 +24,8 @@ public class PendingRequestController {
     }
 
     @GetMapping(path = "/customer/get")
-    public Page<PendingRequestsEntity> getPendingRequestsByCustomerId(@RequestParam("page") int page, @RequestParam("id") int customerId) {
+    public Page<PendingRequestsEntity> getPendingRequestsByCustomerId(@RequestParam("page") int page, @RequestParam("id") int customerId, HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         return pendingRequestService.getAllByCustomerId(page, customerId);
     }
 

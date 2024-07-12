@@ -21,15 +21,23 @@ import EducationFAQs from "../../components/education/EducationFAQs";
 import { certificateFAQs } from "../../shared/SharedEducationCertificate";
 import routes from "../../config/Config";
 import ScrollToTop from "react-scroll-to-top";
-import AOS from 'aos';
-import 'aos/dist/aos.css'; 
+import AOS from "aos";
+import "aos/dist/aos.css";
 export default function EducationCertificate() {
   const bgColor = useColorModeValue("white", "black");
   const normalText = useBreakpointValue({ base: "sm", md: "md", lg: "lg" });
   AOS.init();
   return (
-    <>
-      <ScrollToTop smooth style={{display:"flex" ,alignItems:"center", justifyContent:"center", padding:"4px"}}/>
+    <Box bg={bgColor}>
+      <ScrollToTop
+        smooth
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "4px",
+        }}
+      />
       <Container mawW={"100vw"}>
         <Flex
           direction="column"
@@ -121,34 +129,25 @@ export default function EducationCertificate() {
               fontWeight={"bold"}
               m={"20px 0 0 0"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
-                What to Look for in a Diamond Ring Certification
-              </div>
+              What to Look for in a Diamond Ring Certification
             </Text>
             <Text
               fontSize={{ base: "md", md: "lg", lg: "xl" }}
               fontWeight={"bold"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
-                Consistency comes first
-              </div>
+              Consistency comes first
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               When it comes to comparing lab grading entities, it's more
               important to watch for consistency than the strictness of grading.
-
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               For example, the GIA will not grade a diamond the same way the IGI
               rates a diamond. The reliability of the color and clarity
               grades—and in some instances the cut grades—is only as good as the
               certifying lab's reputation. But if one lab consistently gives a
               single clarity grade higher than another lab, that lab is by no
               means less “authentic.”
-            </div>
             </Text>
             <Text fontSize={normalText}>
               <LinkCharkaUI
@@ -156,108 +155,81 @@ export default function EducationCertificate() {
                 href="https://4cs.gia.edu/en-us/why-gia-diamond-grading-report/"
                 isExternal
               >
-                <div data-aos="fade-up" data-aos-duration="2000">
-                  GIA
-                </div>
+                GIA
               </LinkCharkaUI>
-              <div data-aos="fade-up" data-aos-duration="2000">
-                , the world leader in certification puts it this way: “The GIA
-                Diamond Grading Report is similar to house deeds or vehicle
-                registrations in that it offers information on your purchase, and
-                this information can be used to determine the value of the
-                purchase.”
-              </div>
+              , the world leader in certification puts it this way: “The GIA
+              Diamond Grading Report is similar to house deeds or vehicle
+              registrations in that it offers information on your purchase, and
+              this information can be used to determine the value of the
+              purchase.”
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               Rather than simply comparing grades between certifications, look
               for consistency within the entity's grading decisions.
-            </div>
             </Text>
             <Text
               fontSize={{ base: "md", md: "lg", lg: "xl" }}
               fontWeight={"bold"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
-                Diamond grading is subjective
-              </div>
+              Diamond grading is subjective
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               All diamond grading is subjective—and contrary to popular
               belief—there is not a central organization that mathematically
               defines what a “G” color is or what an “SI1” clarity looks like.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               If one lab consistently calls one color grade “G” while another
               lab will consistently calls that same color “H”, it's perfectly
               acceptable and reasonable—as long as they do so consistently.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               It's important to note that even when an entity is consistent in
               its grading, it doesn't necessarily mean the entity is reliable
               and trustworthy. Buying a diamond with a weak certificate at a
               high price point is not prudent—even if the entity consistently
               grades diamonds this way—because you are not getting the value for
               the price you're paying.
-            </div>
             </Text>
             <Text
               fontSize={{ base: "md", md: "lg", lg: "xl" }}
               fontWeight={"bold"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
-                Considering the price over the certification
-              </div>
+              Considering the price over the certification
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               Regardless of the certificate you receive, the price of the
               diamond should be heavily evaluated. The price should reflect the
               actual quality, beauty and Cut of the diamond—both on the
               certificate and to the naked eye.
-            </div>
             </Text>
             <Text
               fontSize={{ base: "md", md: "lg", lg: "xl" }}
               fontWeight={"bold"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
-                Different certification labs give different results
-              </div>
+              ] Different certification labs give different results
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               Every lab has its quirks. Some are looser in grading diamond
               clarity, while others are looser in rating color. Some labs will
               always upgrade specific color ranges, while others favor
               particular arrangements of inclusions.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               Smart diamond companies use this knowledge—gained from sending
               thousands of diamonds to different labs each month—to maximize
               their results. Knowing which labs are trustworthy and consistent
               will help you avoid purchasing a diamond worth much less than what
               the certificate is stating to be true.
-            </div>
             </Text>
             <Text
               fontSize={{ base: "lg", md: "xl", lg: "2xl" }}
               fontWeight={"bold"}
               m={"20px 0 0 0"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
-                What Are The Best Diamond Certifications?
-              </div>
+              What Are The Best Diamond Certifications?
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               The best diamond certifications are the GIA and AGS because
               they’re the most consistent lab grading entities. That means you
               can trust their grading in all aspects like color, clarity and
@@ -265,57 +237,37 @@ export default function EducationCertificate() {
               labs. When a diamond comes with a GIA or AGS certificate, you can
               trust what the report is saying. That’s why we only recommend
               buying diamonds with GIA and AGS certificates.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               The top two diamond certifications are:
-            </div>
             </Text>
             <OrderedList m={"0 0 0 50px"}>
-              <ListItem>
-              <div data-aos="fade-up" data-aos-duration="2000">
-                GIA (Gemological Institute of America)
-              </div>
-              </ListItem>
-              <ListItem>
-              <div data-aos="fade-up" data-aos-duration="2000">
-                AGS (American Gem Society)
-              </div>
-              </ListItem>
+              <ListItem>GIA (Gemological Institute of America)</ListItem>
+              <ListItem>AGS (American Gem Society)</ListItem>
             </OrderedList>
-            <div data-aos="flip-up">
             <LazyLoadImage
               src="https://www.diamonds.pro/wp-content/uploads/2023/02/diamond-certification.png"
               effect="blur"
             />
-            </div>
             <Text
               fontSize={{ base: "md", md: "lg", lg: "xl" }}
               fontWeight={"bold"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
-                1. GIA Certification
-              </div>
+              1. GIA Certification
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               The GIA (Gemological Institute of America) is the most
               well-respected and renowned diamond grading entity. They are
               incredibly consistent and provide the greatest peace of mind when
               purchasing any diamond.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               GIA has no financial stake in the sale of the diamond and
               evaluates diamonds on a variety of qualities and elements,
               including:
-            </div>
             </Text>
-            <div data-aos="fade-up" data-aos-duration="2000">
 
-            <UnorderedList fontSize={normalText} spacing={2} m={"0 0 0 50px"}>          
+            <UnorderedList fontSize={normalText} spacing={2} m={"0 0 0 50px"}>
               <ListItem>Diamond's evaluation date</ListItem>
               <ListItem>Measurements (in millimeters)</ListItem>
               <ListItem>Cutting style and diamond shape</ListItem>
@@ -340,10 +292,7 @@ export default function EducationCertificate() {
               <ListItem>Security features</ListItem>
               <ListItem>General comments</ListItem>
             </UnorderedList>
-            </div>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
-
               GIA has a reputation for rating rated Color and Clarity, the most
               subjective scales, more rigorously. Because of GIA’s high
               reputation, proven consistency and history, we recommend only
@@ -355,61 +304,51 @@ export default function EducationCertificate() {
               >
                 GIA even certifies lab-grown diamonds.
               </LinkCharkaUI>
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               We recommend these diamond sellers who provide GIA certificates
               with their diamonds:
-            </div>
             </Text>
-            <div data-aos="fade-up" data-aos-duration="2000">
 
-              <UnorderedList fontSize={normalText} spacing={2} m={"0 0 0 50px"}>
-                <ListItem>
-                  <LinkCharkaUI
-                    color={"red.400"}
-                    href="https://www.briangavindiamonds.com/?a_aid=y"
-                    isExternal
-                  >
-                    Brian Gavin Diamonds
-                  </LinkCharkaUI>
-                  : 20+ years of experience, dedicated to offering the best cut
-                  diamonds. They offer a collection called “Brian Gavin Signature”
-                  Hearts & Arrows, showcasing super ideal cuts
-                </ListItem>
-                <ListItem>
-                  <LinkCharkaUI
-                    color={"red.400"}
-                    href="https://www.bluenile.com/?a_aid=dmnd1357%3Fa_aid%3Ddmnd1357&data1=5457"
-                    isExternal
-                  >
-                    Blue Nile
-                  </LinkCharkaUI>
-                  : 17+ years of experience, offering the largest inventory of
-                  diamonds. Blue Nile provides excellent diamond quality and an
-                  array of well-crafted settings.
-                </ListItem>
-              </UnorderedList>
-            </div>
+            <UnorderedList fontSize={normalText} spacing={2} m={"0 0 0 50px"}>
+              <ListItem>
+                <LinkCharkaUI
+                  color={"red.400"}
+                  href="https://www.briangavindiamonds.com/?a_aid=y"
+                  isExternal
+                >
+                  Brian Gavin Diamonds
+                </LinkCharkaUI>
+                : 20+ years of experience, dedicated to offering the best cut
+                diamonds. They offer a collection called “Brian Gavin Signature”
+                Hearts & Arrows, showcasing super ideal cuts
+              </ListItem>
+              <ListItem>
+                <LinkCharkaUI
+                  color={"red.400"}
+                  href="https://www.bluenile.com/?a_aid=dmnd1357%3Fa_aid%3Ddmnd1357&data1=5457"
+                  isExternal
+                >
+                  Blue Nile
+                </LinkCharkaUI>
+                : 17+ years of experience, offering the largest inventory of
+                diamonds. Blue Nile provides excellent diamond quality and an
+                array of well-crafted settings.
+              </ListItem>
+            </UnorderedList>
             <Text
               fontSize={{ base: "md", md: "lg", lg: "xl" }}
               fontWeight={"bold"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
-                2. AGS Certification
-              </div>
+              2. AGS Certification
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               The AGS (American Gem Society) prides itself on being the original
               lab to provide diamond cut grades. Long before the GIA introduced
               their cut grade a few years ago, the AGS has been offering its
               unique cut grade scale from 0 to 9 (with 0 being termed “ideal”).
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               Back in those days, the AGS had the monopoly on the “ideal cut”
               market (with top vendors such as{" "}
               <LinkCharkaUI
@@ -423,10 +362,8 @@ export default function EducationCertificate() {
               certificate claiming so. Now that the GIA has entered the cut
               grade game, though, their share in this market has dropped
               significantly.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               The AGS generally tries to bill itself as being a bit more fancy
               and refined than the GIA. In reality, there's hardly anything at
               all to distinguish the two laboratories.{" "}
@@ -438,10 +375,8 @@ export default function EducationCertificate() {
                 AGS is still the go-to choice for many retailers
               </LinkCharkaUI>{" "}
               selling perfectly cut round diamonds.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               The one issue to look out for is “upgrade shopping”. No lab is
               100% accurate as color and clarity are not objective grades (like
               weight and dimensions are). If there is a diamond that is
@@ -453,19 +388,15 @@ export default function EducationCertificate() {
               much more money). Its far more likely that the grades will be the
               same, but its possible they will get the upgrade (which more than
               makes up for the cost of sending it to AGS for certification).
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               It is very common for companies to use AGS for branded super ideal
               diamonds (like True Hearts, or Hearts on Fire). But AGS is not as
               commonly used for non-round diamonds. So if a retailer has 50
               cushion cut diamonds, 49 of which are GIA certified and one AGS
               diamond, that diamond is likely to have received an upgrade.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               This is not a knock on AGS, merely an observation of how some
               wholesalers and retailers may try to take advantage of the end
               consumer. All in all, AGS is a very reliable laboratory. We only
@@ -487,55 +418,41 @@ export default function EducationCertificate() {
                 Blue Nile
               </LinkCharkaUI>
               ) that emphasize these two labs.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               GIA has a reputation for rating rated Color and Clarity, the most
               subjective scales, more rigorously. Because of GIA’s high
               reputation, proven consistency and history, we recommend only
               buying diamonds with a GIA or AGS certificate. Now, GIA even
-              certifies lab-grown diamonds.
-            </div>
+              certifies lab-grown diamonds. ={" "}
             </Text>
             <Text
               fontSize={{ base: "md", md: "lg", lg: "xl" }}
               fontWeight={"bold"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
-                3. IGI Certification
-              </div>
+              3. IGI Certification
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               The IGI (International Gemological Institute) began as the blue
               collar workhorse of the diamond business.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               They were the most popular gem lab for major jewelry chains in the
               United States and Canada, like Kay, Zales and others.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               IGI is like a factory: they work fast, and their prices are much
               better than those of GIA—which appeals to diamonds sellers but not
               necessarily the end consumer.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               While IGI bills itself as a top-of-the-line laboratory, this is
               unfortunately not the case. From extensive experience in the
               diamond industry, we have continually seen that their grading is
               lax and less consistent than the standard bearers in the industry,
               like GIA.
-            </div>
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               Even the{" "}
               <LinkCharkaUI
                 color={"blue.400"}
@@ -545,11 +462,9 @@ export default function EducationCertificate() {
                 largest jewelry insurance underwriter
               </LinkCharkaUI>{" "}
               writes:
-            </div>
             </Text>
             <Box borderLeft={"2px solid"} borderColor={"blue.400"} p={4}>
               <Text fontSize={"md"} fontStyle={"italic"} fontWeight={"light"}>
-              <div data-aos="fade-up" data-aos-duration="2000">
                 “The most reliable diamond certificates (also called diamond
                 reports) come from the Gemological Institute of America (GIA)
                 and the American Gem Society (AGS). These are the most respected
@@ -557,194 +472,134 @@ export default function EducationCertificate() {
                 reports are not appraisals and do not carry valuations.
                 Certificates from any other sources are often questionable and
                 should not be relied upon by insurers.”
-              </div>
               </Text>
             </Box>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               Buying a diamond with an independent certificate should give you
               peace of mind, knowing your diamond is equivalent to the quality
               and value that is claimed. With our years of expertise, we do not
               believe IGI certificates provide this assurance.
-            </div>
             </Text>
             <Text
               fontSize={{ base: "md", md: "lg", lg: "xl" }}
               fontWeight={"bold"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
-                4. EGL Certification
-              </div>
+              4. EGL Certification
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               The EGL (European Gemological Laboratory)—vastly and
               inconsistently—inflates their quality claims. When considering an
               EGL certified diamond, you may think you’re getting a better deal.
               In reality, the price is highly inflated for an inferior product.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               We unfortunately have seen many customers purchase an EGL
               certified diamond thinking they found a great deal, only to
               realize they fell for a selling trick
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               As an example of one of these selling tricks, we found an EGL
               certified 1.00 Carat H VS1 ideal cut online for $4,450. At first,
               it seems like an incredible deal. In reality, though, when EGL
               claims it's an H VS1, 50% of the time it's actually a J SI1—and
               50% of the time it's a J SI2 or K SI1: not an H VS1.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               Searching for a GIA certified diamond two or three Color grades
               lower or one or two Clarity grades lower will ensure you purchase
               a higher quality diamond for a cheaper price.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               <strong>
                 {" "}
                 The bottom line is: don't buy an EGL certified diamond.
               </strong>{" "}
               No matter how “cheap” it seems to you compared to GIA certified
               diamonds, it's all a game.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               Any EGL certified stone in the market is, by definition, more
               expensive than its identical self as certified by the GIA.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               As evidence, we sent in the same four diamonds to EGL to receive
               Color and Clarity gradings — the most subjective scales.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               It's evident that the EGL graded the diamonds higher than the
               other labs. An EGL graded diamond with a Clarity of VS2, for
               example, it is not comparable to a VS2 given by the GIA. For this
               reason, the price and value of a EGL diamond is incomparable and
               inequivalent to a diamond certified by GIA.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
-
               In addition, the two EGL labs that graded these diamonds offered
               different results. The inconsistency among the labs makes it
               difficult to trust the grading and verify the actual quality and
               value of an EGL diamond.
-              </div>
             </Text>
             <Text
               fontSize={{ base: "md", md: "lg", lg: "xl" }}
               fontWeight={"bold"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
               5. HRD Certification
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               HRD (Hoge Raad voor Diamant) is a diamond grading organization
               based in Europe. Not generally regarded as a legitimate
               alternative in the United States, HRD still claims to be the
               authority for diamond grading in the world.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               Over the years, we have experienced incredible inconsistency with
               HRD grading. They usually average about two Color and/or Clarity
               grades above the GIA’s grading. HRD graded diamonds are usually
               priced much higher than equivalent diamonds graded by the GIA.
               This allows for significant profits to be made by diamond
               companies.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               To offer a comparison between HRD grading and other labs, we sent
               four stones to various lab entities. In the chart below, you can
               see HRD graded the same four diamonds better than the GIA in the
               categories of Color and Clarity: two highly subjective grades.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               The clear difference between the grading demonstrates that it's
               not prudent to compare apples to apples among lab entities. Simply
               put, an F Color grading given by HRD will not mean the same as a
               GIA F Color diamond. The price you'll pay for an HRD diamond will
               not compare to the value and quality of a GIA graded diamond—even
               if it's a grade or two higher
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               <strong>
                 If you are considering an HRD certified diamond, we suggest
                 reconsidering
               </strong>
               . We recommend only purchasing diamonds that come with a GIA or
               AGS certificate.
-
-              </div>
             </Text>
             <Text
               fontSize={{ base: "md", md: "lg", lg: "xl" }}
               fontWeight={"bold"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
               6. GSI Certification
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               The GSI (Gemological Science International) is a new grading
               entity that's only been around for a few years. Unfortunately they
               didn't come to the industry with fresh ideas or innovative
               technology.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               We have found that GSI grading is not only looser than the gold
               standards (GIA and AGSL labs), but weaker than than the next level
               down (IGI and HRD) as well. GSI also doesn't maintain consistent
               gradings, to try, for example, adjusting the grades down 1 or 2
               qualities and calculating the value.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               For these reasons, we do not recommend buying a diamond that has a
               GSI certificate.{" "}
               <strong>
@@ -755,47 +610,33 @@ export default function EducationCertificate() {
               compare apples to apples. Retailers don't use inaccurate
               certificates like GSI in order to give the consumer a better deal;
               they do it to make more money off of those consumers.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               To demonstrate how GSI grades diamonds compared to other labs, we
               sent four stones to GSI, IGI, HRD, EGL and GIA. For the Color and
               Clarity grades—the two most subjective categories—we received
               distinctly different results.
-
-              </div>
             </Text>
             <Text fontSize={normalText}>
-              <div data-aos="fade-up" data-aos-duration="2000">
               GSI graded some of the diamonds higher than the GIA and some
               lower, making it hard to determine the consistency of a GSI
               grading. When looking for a diamond, it’s critical to chose a
               diamond certified by a reliable, consistent entity, like the GIA,
               so you know that what you are buying matches the actual value of
               the stone.
-
-              </div>
             </Text>
-            <div data-aos="fade-up" data-aos-duration="2000">
             <EducationFAQs
               name={"FAQs About Diamond Certification"}
               content={certificateFAQs}
             />
-            </div>
             <Text
               fontSize={{ base: "lg", md: "xl", lg: "2xl" }}
               fontWeight={"bold"}
               m={"20px 0 0 0"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
               Bottom Line Recommendation
-
-              </div>
             </Text>
             <Text fontSize={normalText} fontStyle={"italic"}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               If you're buying online, use{" "}
               <LinkCharkaUI
                 color={"red.400"}
@@ -808,19 +649,15 @@ export default function EducationCertificate() {
               lab available. We have witnessed numerous gross mistakes by each
               major gemological lab, and want to ensure you make a safe and
               smart purchase.
-            </div>
             </Text>
             <Text
               fontSize={{ base: "lg", md: "xl", lg: "2xl" }}
               fontWeight={"bold"}
               m={"20px 0 0 0"}
             >
-              <div data-aos="fade-up" data-aos-duration="2000">
-                Conclusion
-              </div>
+              Conclusion
             </Text>
             <Text fontSize={normalText}>
-            <div data-aos="fade-up" data-aos-duration="2000">
               We only recommend diamonds certified by GIA or AGS because we know
               their grading is consistent, reliable and trustworthy. We only
               work with vendors (such as{" "}
@@ -832,13 +669,10 @@ export default function EducationCertificate() {
                 Brian Gavin Diamonds
               </LinkCharkaUI>{" "}
               ) that emphasize these two labs.
-            </div>
             </Text>
           </Flex>
         </Flex>
       </Container>
-    </>
+    </Box>
   );
 }
-
-

@@ -1,11 +1,13 @@
 import {
   Badge,
   Button,
+  Center,
   Flex,
   Grid,
   GridItem,
   ListItem,
   SimpleGrid,
+  Skeleton,
   Text,
   UnorderedList,
   useColorModeValue,
@@ -13,11 +15,12 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Cloudinary } from "@cloudinary/url-gen/index";
-import { AdvancedImage } from "@cloudinary/react";
+import { AdvancedImage, lazyload, placeholder } from "@cloudinary/react";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
+import routes from "../../config/Config";
 export default function DiamondCheckDetails() {
   const navigate = useNavigate();
   const toast = useToast();
@@ -28,6 +31,8 @@ export default function DiamondCheckDetails() {
     },
   });
   const bgColor = useColorModeValue("white", "black");
+  const fontColor = useColorModeValue("black", "white");
+  const bgColor1 = useColorModeValue("blue.400", "#DBA843");
   const [diamond, setDiamond] = useState({});
   const [diamondImages, setDiamondImages] = useState([]);
 
@@ -40,7 +45,20 @@ export default function DiamondCheckDetails() {
       )
       .then(function (response) {
         if (response.data === null) {
-          navigate("/error");
+          setTimeout(() => {
+            toast({
+              title: "Error",
+              description: "Diamond not found",
+              position: "top-right",
+
+              status: "error",
+              duration: 3000,
+              isClosable: true,
+            });
+          }, 2000);
+          setTimeout(() => {
+            navigate(routes.diamondCheck);
+          }, 3000);
         }
         console.log(response.data);
         setDiamond(response.data);
@@ -50,6 +68,8 @@ export default function DiamondCheckDetails() {
         toast({
           title: "Error",
           description: "Diamond not found",
+          position: "top-right",
+
           status: "error",
           duration: 3000,
           isClosable: true,
@@ -103,33 +123,42 @@ export default function DiamondCheckDetails() {
               cldImg={cld
                 .image(image)
                 .resize(thumbnail().width(200).height(200))}
+              plugins={[lazyload(), placeholder({ mode: "blur" })]}
             />
           );
         })}
       </SimpleGrid>
       <Flex direction={"column"} gap={5}>
         <Flex direction={"row"} alignItems={"center"} gap={5}>
-          <Text fontSize="xl" fontWeight={"bold"}>
-            ID {diamond?.id}
-          </Text>
-          <Badge colorScheme="green">{diamond?.origin} Diamond</Badge>
+          <Skeleton isLoaded={diamond !== null}>
+            <Text fontSize="xl" fontWeight={"bold"}>
+              ID {diamond?.id}
+            </Text>
+          </Skeleton>
+          <Skeleton isLoaded={diamond !== null}>
+            <Badge colorScheme="green">{diamond?.origin} Diamond</Badge>
+          </Skeleton>
         </Flex>
-        <Text fontSize="sm" color={"gray"}>
-          Valuated Date: {diamond?.createdDate?.slice(0, 10) || "N/A"}
-        </Text>
+        <Skeleton isLoaded={diamond !== null}>
+          <Text fontSize="sm" color={"gray"}>
+            Valuated Date: {diamond?.createdDate?.slice(0, 10) || "N/A"}
+          </Text>
+        </Skeleton>
         <UnorderedList>
           <ListItem>
             Fair Price Estimate:{" "}
-            <Text display={"inline"} color={"blue.400"} fontWeight={"bold"}>
-              ${diamond?.price}
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text display={"inline"} color={bgColor1} fontWeight={"bold"}>
+                ${diamond?.price}
+              </Text>
+            </Skeleton>
           </ListItem>
         </UnorderedList>
         <Grid
           templateColumns="repeat(4, 1fr)"
           border={"2px solid"}
           borderRadius={"10px"}
-          borderColor={"blue.400"}
+          borderColor={bgColor1}
           p={5}
           gap={5}
         >
@@ -137,102 +166,133 @@ export default function DiamondCheckDetails() {
             <Text fontSize="xs" fontWeight={"bold"} color={"gray"}>
               Shape
             </Text>
-            <Text fontSize="sm" fontWeight={"bold"}>
-              {diamond?.shape || "N/A"}
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text fontSize="sm" fontWeight={"bold"}>
+                {diamond?.shape || "N/A"}
+              </Text>
+            </Skeleton>
           </GridItem>
           <GridItem>
             <Text fontSize="xs" fontWeight={"bold"} color={"gray"}>
               Carat
             </Text>
-            <Text fontSize="sm" fontWeight={"bold"}>
-              {diamond?.carat || "0"} ct.
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text fontSize="sm" fontWeight={"bold"}>
+                {diamond?.carat || "0"} ct.
+              </Text>
+            </Skeleton>
           </GridItem>
           <GridItem>
             <Text fontSize="xs" fontWeight={"bold"} color={"gray"}>
               Color
             </Text>
-            <Text fontSize="sm" fontWeight={"bold"}>
-              {diamond?.color || "N/A"}
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text fontSize="sm" fontWeight={"bold"}>
+                {diamond?.color || "N/A"}
+              </Text>
+            </Skeleton>
           </GridItem>
           <GridItem>
             <Text fontSize="xs" fontWeight={"bold"} color={"gray"}>
               Cut
             </Text>
-            <Text fontSize="sm" fontWeight={"bold"}>
-              {diamond?.cut || "N/A"}
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text fontSize="sm" fontWeight={"bold"}>
+                {diamond?.cut || "N/A"}
+              </Text>
+            </Skeleton>
           </GridItem>
           <GridItem>
             <Text fontSize="xs" fontWeight={"bold"} color={"gray"}>
               Clarity
             </Text>
-            <Text fontSize="sm" fontWeight={"bold"}>
-              {diamond?.clarity || "N/A"}
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text fontSize="sm" fontWeight={"bold"}>
+                {diamond?.clarity || "N/A"}
+              </Text>
+            </Skeleton>
           </GridItem>
           <GridItem>
             <Text fontSize="xs" fontWeight={"bold"} color={"gray"}>
               Symmetry
             </Text>
-            <Text fontSize="sm" fontWeight={"bold"}>
-              {diamond?.symmetry || "N/A"}
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text fontSize="sm" fontWeight={"bold"}>
+                {diamond?.symmetry || "N/A"}
+              </Text>
+            </Skeleton>
           </GridItem>
           <GridItem>
             <Text fontSize="xs" fontWeight={"bold"} color={"gray"}>
               Polish
             </Text>
-            <Text fontSize="sm" fontWeight={"bold"}>
-              {diamond?.polish || "N/A"}
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text fontSize="sm" fontWeight={"bold"}>
+                {diamond?.polish || "N/A"}
+              </Text>
+            </Skeleton>
           </GridItem>
           <GridItem>
             <Text fontSize="xs" fontWeight={"bold"} color={"gray"}>
               Fluorescence
             </Text>
-            <Text fontSize="sm" fontWeight={"bold"}>
-              {diamond?.fluorescence || "N/A"}
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text fontSize="sm" fontWeight={"bold"}>
+                {diamond?.fluorescence || "N/A"}
+              </Text>
+            </Skeleton>
           </GridItem>
           <GridItem>
             <Text fontSize="xs" fontWeight={"bold"} color={"gray"}>
               Measurement
             </Text>
-            <Text fontSize="sm" fontWeight={"bold"}>
-              {diamond?.measurements || "N/A"}
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text fontSize="sm" fontWeight={"bold"}>
+                {diamond?.measurements || "N/A"}
+              </Text>
+            </Skeleton>
           </GridItem>
           <GridItem>
             <Text fontSize="xs" fontWeight={"bold"} color={"gray"}>
               Table
             </Text>
-            <Text fontSize="sm" fontWeight={"bold"}>
-              {diamond?.diamondTable || "N/A"}
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text fontSize="sm" fontWeight={"bold"}>
+                {diamond?.diamondTable || "N/A"}
+              </Text>
+            </Skeleton>
           </GridItem>
           <GridItem>
             <Text fontSize="xs" fontWeight={"bold"} color={"gray"}>
               Depth
             </Text>
-            <Text fontSize="sm" fontWeight={"bold"}>
-              {diamond?.depth || "N/A"}
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text fontSize="sm" fontWeight={"bold"}>
+                {diamond?.depth || "N/A"}
+              </Text>
+            </Skeleton>
           </GridItem>
           <GridItem>
             <Text fontSize="xs" fontWeight={"bold"} color={"gray"}>
               Lenght to Width Ratio
             </Text>
-            <Text fontSize="sm" fontWeight={"bold"}>
-              {diamond?.lengthToWidthRatio || "N/A"}
-            </Text>
+            <Skeleton isLoaded={diamond !== null}>
+              <Text fontSize="sm" fontWeight={"bold"}>
+                {diamond?.lengthToWidthRatio || "N/A"}
+              </Text>
+            </Skeleton>
           </GridItem>
         </Grid>
-        <Button colorScheme="blue" size={{ base: "sm", md: "md", lg: "lg" }}>
-          Run another check
-        </Button>
+        <Center>
+          <Link to={routes.diamondCheck}>
+            <Button
+              colorScheme="blue"
+              size={{ base: "sm", md: "md", lg: "lg" }}
+            >
+              Run another check
+            </Button>
+          </Link>
+        </Center>
       </Flex>
     </Flex>
   );

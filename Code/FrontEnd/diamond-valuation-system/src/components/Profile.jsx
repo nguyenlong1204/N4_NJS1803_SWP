@@ -12,14 +12,21 @@ export default function Profile() {
   const bgColor = useColorModeValue("gray.800", "black");
   return (
     <>
-      <Flex align={"center"} p={3} pr={0} bg={bgColor}>
-        <WrapItem mr={3}>
-          <Avatar
-            name={auth.userAuth.fullname}
+      <Flex
+        direction="row"
+        alignItems={"center"}
+        paddingLeft={"26px"}
+        mt="8"
+      >
+        <Avatar
+            name={auth.userAuth.fullname || auth.userAuth.username}
+            mr={"12px"}
             src="https://bit.ly/tioluwani-kolawole"
           />
-        </WrapItem>
-        <Text>{auth.userAuth.fullname}</Text>
+        <Text mt="4" fontSize="md" margin={"0px"}>
+          {auth.userAuth.fullname || auth.userAuth.username}
+        </Text>
+        
       </Flex>
     </>
   );

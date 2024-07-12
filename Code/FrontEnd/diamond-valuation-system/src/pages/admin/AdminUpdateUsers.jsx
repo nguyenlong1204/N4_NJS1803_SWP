@@ -12,14 +12,14 @@ import {
   FormLabel,
   FormErrorMessage,
   Button,
-  Select,
   InputLeftAddon,
   FormHelperText,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext } from "react";
 import { Form, Formik } from "formik";
 import { validateSignUp } from "../../utils/ValidateSignUp";
 import { updateAccount } from "./AdminServices";
+import { UserContext } from "../../components/GlobalContext/AuthContext";
 export default function AdminUpdateUsers({
   setIsUpdated,
   isOpen,
@@ -27,7 +27,9 @@ export default function AdminUpdateUsers({
   updateAcc,
   updateUser,
   toast,
-}) {
+})
+{
+  const user = useContext(UserContext);
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -38,6 +40,8 @@ export default function AdminUpdateUsers({
           <Formik
             initialValues={{
               role: updateAcc?.roleId || "",
+              username: updateAcc?.username,
+              password: "A1@aaaaaaa",
               fullName: updateAcc?.fullName,
               email: updateAcc?.email,
               phoneNumber: updateAcc?.phoneNumber || "",
@@ -50,11 +54,14 @@ export default function AdminUpdateUsers({
               updateAccount(
                 updateAcc.id,
                 values.role,
+                values.username,
+                values.password,
                 values.fullName,
                 values.email,
                 values.phoneNumber,
                 values.address,
-                toast
+                toast,
+                user.userAuth.token
               )
                 .then(() => {
                   setIsUpdated(true);
@@ -122,7 +129,6 @@ export default function AdminUpdateUsers({
                     onBlur={handleBlur}
                     value={values.email}
                   />
-                  <FormHelperText>abc@def.xyz</FormHelperText>
                   <FormErrorMessage>
                     {errors.email && touched.email && errors.email}
                   </FormErrorMessage>
@@ -145,7 +151,6 @@ export default function AdminUpdateUsers({
                       value={values.phoneNumber}
                     />
                   </InputGroup>
-                  <FormHelperText>Ex: 0832428279</FormHelperText>
                   <FormErrorMessage>
                     {errors.phoneNumber &&
                       touched.phoneNumber &&

@@ -11,6 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GoogleLoginRequestDTO {
     private String email;
-    private String given_name;
     private String name;
 }

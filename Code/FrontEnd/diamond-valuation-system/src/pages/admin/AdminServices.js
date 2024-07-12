@@ -12,7 +12,7 @@ export const fetchAccounts = async (
       .get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/api/admin/get?search=${search}&page=${pageId}&filter=${filter}`
+        }/admin/get?search=${search}&page=${pageId}&filter=${filter}`
       )
       .then(function (response) {
         console.log(response.data.content);
@@ -24,6 +24,7 @@ export const fetchAccounts = async (
     toast({
       title: "User fetch failed.",
       description: "Failed to fetch user.",
+      position: "top-right",
       status: "error",
       duration: 3000,
       isClosable: true,
@@ -43,7 +44,7 @@ export const createAccount = async (
 ) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/admin/create`,
+      `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin/create`,
       {
         roleid: roleid,
         username: username,
@@ -58,6 +59,8 @@ export const createAccount = async (
       toast({
         title: "User creation failed.",
         description: res.data,
+        position: "top-right",
+
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -66,6 +69,8 @@ export const createAccount = async (
       toast({
         title: "User created.",
         description: "User has been created successfully.",
+        position: "top-right",
+
         status: "success",
         duration: 3000,
         isClosable: true,
@@ -75,6 +80,8 @@ export const createAccount = async (
     toast({
       title: "User creation failed.",
       description: "Failed to create user.",
+      position: "top-right",
+
       status: "error",
       duration: 3000,
       isClosable: true,
@@ -86,28 +93,40 @@ export const createAccount = async (
 export const updateAccount = async (
   id,
   roleid,
+  username,
+  password,
   fullname,
   email,
   phonenumber,
   address,
-  toast
+  toast,
+  token
 ) => {
   try {
-    const res = await axios.post(
-      `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/admin/update`,
+    const res = await axios.put(
+      `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin/update`,
       {
         id: id,
         roleid: roleid,
+        username: username,
+        password: password,
         fullname: fullname,
         email: email,
         phonenumber: phonenumber,
         address: address,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
       }
     );
     if (res.data.includes("exist")) {
       toast({
         title: "User update failed.",
         description: res.data,
+        position: "top-right",
+
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -116,6 +135,8 @@ export const updateAccount = async (
       toast({
         title: "User updated.",
         description: "User has been updated successfully.",
+        position: "top-right",
+
         status: "success",
         duration: 3000,
         isClosable: true,
@@ -125,6 +146,7 @@ export const updateAccount = async (
     toast({
       title: "User update failed.",
       description: "Failed to update user.",
+      position: "top-right",
       status: "error",
       duration: 3000,
       isClosable: true,
@@ -133,17 +155,23 @@ export const updateAccount = async (
   }
 };
 
-export const deleteAccount = async (id, setIsDeleted, toast) => {
+export const deleteAccount = async (id, setIsDeleted, toast, token) => {
   try {
     await axios
-      .post(`${import.meta.env.VITE_REACT_APP_BASE_URL}/api/admin/delete`, {
-        id: id,
-      })
+      .delete(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin/delete?id=${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
       .then(function (response) {
         setIsDeleted(true);
         toast({
           title: "User deleted.",
           description: "User has been deleted successfully.",
+          position: "top-right",
           status: "success",
           duration: 3000,
           isClosable: true,
@@ -153,6 +181,7 @@ export const deleteAccount = async (id, setIsDeleted, toast) => {
     toast({
       title: "User deletion failed.",
       description: "Failed to delete user.",
+      position: "top-right",
       status: "error",
       duration: 3000,
       isClosable: true,

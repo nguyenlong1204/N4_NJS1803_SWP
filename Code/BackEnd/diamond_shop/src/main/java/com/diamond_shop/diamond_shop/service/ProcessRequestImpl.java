@@ -8,11 +8,13 @@ import com.diamond_shop.diamond_shop.entity.ProcessRequestEntity;
 import com.diamond_shop.diamond_shop.repository.AccountRepository;
 import com.diamond_shop.diamond_shop.repository.PendingRepository;
 import com.diamond_shop.diamond_shop.repository.ProcessRequestRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ProcessRequestImpl implements ProcessRequestService {
 
     private final ProcessRequestRepository processRequestRepository;
@@ -21,14 +23,9 @@ public class ProcessRequestImpl implements ProcessRequestService {
     private final ValuationResultService valuationResultService;
     private final ProcessResultService processResultService;
 
-    public ProcessRequestImpl(
-            ProcessRequestRepository processRequestRepository,
-            AccountRepository accountRepository, PendingRepository pendingRepository, ValuationResultService valuationResultService, ProcessResultService processResultService) {
-        this.processRequestRepository = processRequestRepository;
-        this.accountRepository = accountRepository;
-        this.pendingRepository = pendingRepository;
-        this.valuationResultService = valuationResultService;
-        this.processResultService = processResultService;
+    @Override
+    public int totalDone() {
+        return processRequestRepository.totalDone();
     }
 
     @Override

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import PageIndicator from "../../../components/PageIndicator";
 import {
+  Box,
   Button,
   Center,
   Flex,
@@ -32,6 +33,10 @@ import { GiDiamondTrophy } from "react-icons/gi";
 
 export default function CommitmentTable() {
   const user = useContext(UserContext);
+  const isUsers =
+    user.userAuth &&
+    user.userAuth.authorities &&
+    user.userAuth.authorities.length > 0;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
   const viewCommitment = useDisclosure();
@@ -39,25 +44,24 @@ export default function CommitmentTable() {
   const [commitment, setCommitment] = useState([]);
   const [selectedCommitment, setSelectedCommitment] = useState({});
   const fetchCommitment = async (page) => {
-    let url = "";
-    if (user.userAuth.roleid === 2) {
-      url = `${
-        import.meta.env.VITE_REACT_APP_BASE_URL
-      }/api/commitment/get/all?page=${page}`;
-    } else if (user.userAuth.roleid === 5) {
-      url = `${
-        import.meta.env.VITE_REACT_APP_BASE_URL
-      }/api/commitment/customer/get/all?page=${page}&id=${user.userAuth.id}`;
+    if (isUsers) {
+      let url = "";
+      if (user.userAuth.authorities[0].authority === "Manager") {
+        url = `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/api/commitment/get/all?page=${page}`;
+      } else if (user.userAuth.authorities[0].authority === "Customer") {
+        url = `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/api/commitment/get?page=${page}&customerId=${user.userAuth.id}`;
+      }
+      axios.get(url).then(function (response) {
+        console.log(response.data);
+        setCommitment(response.data.content);
+        setTotalPages(response.data.totalPages);
+      });
     }
-    axios.get(url).then(function (response) {
-      console.log(response.data);
-      setCommitment(response.data.content);
-      setTotalPages(response.data.totalPages);
-    });
   };
-  useEffect(() => {
-    fetchCommitment(currentPage);
-  }, []);
   useEffect(() => {
     fetchCommitment(currentPage);
   }, [currentPage]);
@@ -73,24 +77,28 @@ export default function CommitmentTable() {
         {totalPages === 0 ? (
           <Center>No commitment to show</Center>
         ) : (
-          <Skeleton isLoaded={commitment.length > 0} height={"200px"}>
-            <TableContainer>
-              <Table size={"sm"} colorScheme="blue">
-                <Thead bg={"blue.400"}>
+          <Skeleton isLoaded={commitment?.length > 0} height={"200px"}>
+            <TableContainer shadow="md" borderRadius="md">
+              <Table >
+                <Thead bg="gray.600" color="white" mb={5} boxShadow="sm" borderRadius="md" maxW="100%" minW="100%">
                   <Tr>
-                    <Th>No</Th>
-                    <Th>Request ID</Th>
-                    {user.userAuth.roleid === 2 && <Th>Customer Name</Th>}
-                    <Th>Created Date</Th>
-                    <Th>View</Th>
+                    <Th color="white">ID</Th>
+                    <Th color="white">Request ID</Th>
+
+                    {isUsers &&
+                      user.userAuth.authorities[0].authority === "Manager" && (
+                        <Th color="white">Customer Name</Th>
+                      )}
+                    <Th color="white">Created Date</Th>
+                    <Th color="white">View</Th>
                   </Tr>
                 </Thead>
-                <Tbody>
-                  {commitment.map((item, index) => (
-                    <Tr key={index}>
-                      <Td>{index + 1}</Td>
+                <Tbody variant="simple" bg="gray.200" color="black">
+                  {commitment?.map((item, index) => (
+                    <Tr key={index} _hover={{ bg: "gray.100" }}>
+                      <Td>{item?.id}</Td>
                       <Td>{item?.valuationRequestId || "N/A"}</Td>
-                      {user.userAuth.roleid === 2 && (
+                      {user.userAuth.authorities[0].authority === "Manager" && (
                         <Td>{item?.customerName || "N/A"}</Td>
                       )}
                       <Td>{item?.createdDate?.slice(0, 10) || "N/A"}</Td>
@@ -98,6 +106,7 @@ export default function CommitmentTable() {
                         <IconButton
                           icon={<ViewIcon />}
                           bg={"transparent"}
+                          color="black"
                           onClick={() => {
                             setSelectedCommitment(item);
                             viewCommitment.onOpen();
@@ -109,66 +118,72 @@ export default function CommitmentTable() {
                 </Tbody>
               </Table>
             </TableContainer>
+            <Center m={"50px 0 0 0"}>
+              <PageIndicator
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+              />
+            </Center>
           </Skeleton>
         )}
-        <Center>
-          <PageIndicator
-            totalPages={totalPages}
-            setCurrentPage={setCurrentPage}
-          />
-        </Center>
       </Flex>
       <Modal isOpen={viewCommitment.isOpen} onClose={viewCommitment.onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            Commitment ID: {selectedCommitment?.id || "N/A"}
+            <Skeleton isLoaded={selectedCommitment !== null}>
+              Commitment ID: {selectedCommitment?.id || "N/A"}
+            </Skeleton>
           </ModalHeader>
           <ModalBody>
-            <Flex direction={"column"} gap={5}>
-              <Text>
-                <strong>Created Date</strong>:{" "}
-                {selectedCommitment?.createdDate?.slice(0, 10) || "N/A"}
-              </Text>
-              <Text>
-                <strong>Request ID</strong>:{" "}
-                {selectedCommitment?.valuationRequestId || "N/A"}
-              </Text>
-              <Text>
-                <strong>Customer Name</strong>:{" "}
-                {selectedCommitment?.customerName || "N/A"}
-              </Text>
-              <Text>
-                <strong>Transaction No</strong>:{" "}
-                {selectedCommitment?.transactionNo || "N/A"}
-              </Text>
-              <Text>
-                <strong>Date of purchase</strong>:{" "}
-                {selectedCommitment?.paymentDate?.slice(0, 16) || "N/A"}
-              </Text>
-              <Text>
-                <strong>Bank</strong>: {selectedCommitment?.bank || "N/A"}
-              </Text>
-              <Text>
-                <strong>Amount</strong>: {selectedCommitment?.amount || "N/A"}{" "}
-                vnd
-              </Text>
-              <Text>
-                <strong>Order Info</strong>{" "}
-                {selectedCommitment?.orderInfo || "N/A"}
-              </Text>
-            </Flex>
+            <Skeleton isLoaded={selectedCommitment !== null}>
+              <Flex direction={"column"} gap={5}>
+                <Text>
+                  <strong>Created Date</strong>:{" "}
+                  {selectedCommitment?.createdDate?.slice(0, 10) || "N/A"}
+                </Text>
+                <Text>
+                  <strong>Request ID</strong>:{" "}
+                  {selectedCommitment?.valuationRequestId || "N/A"}
+                </Text>
+                <Text>
+                  <strong>Customer Name</strong>:{" "}
+                  {selectedCommitment?.customerName || "N/A"}
+                </Text>
+                <Text>
+                  <strong>Transaction No</strong>:{" "}
+                  {selectedCommitment?.transactionNo || "N/A"}
+                </Text>
+                <Text>
+                  <strong>Date of purchase</strong>:{" "}
+                  {selectedCommitment?.paymentDate?.slice(0, 16) || "N/A"}
+                </Text>
+                <Text>
+                  <strong>Bank</strong>: {selectedCommitment?.bank || "N/A"}
+                </Text>
+                <Text>
+                  <strong>Amount</strong>: {selectedCommitment?.amount || "N/A"}{" "}
+                  vnd
+                </Text>
+                <Text>
+                  <strong>Order Info</strong>{" "}
+                  {selectedCommitment?.orderInfo || "N/A"}
+                </Text>
+              </Flex>
+            </Skeleton>
           </ModalBody>
           <Center>
             <ModalFooter>
-              <Button
-                colorScheme="teal"
-                onClick={() => {
-                  viewPrintCommitment.onOpen();
-                }}
-              >
-                View
-              </Button>
+              <Skeleton isLoaded={selectedCommitment !== null}>
+                <Button
+                  colorScheme="teal"
+                  onClick={() => {
+                    viewPrintCommitment.onOpen();
+                  }}
+                >
+                  View
+                </Button>
+              </Skeleton>
             </ModalFooter>
           </Center>
         </ModalContent>

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 
 
 public interface ProcessRequestService {
+    int totalDone();
     Page<ProcessRequestEntity> viewAllProcessRequests(int page);
     Page<ProcessRequestEntity> viewProcessRequestsByConsultingStaffId(int page, int consultingStaff);
     Page<ProcessRequestEntity> viewProcessRequestsByCustomerId(int page, int customerId);

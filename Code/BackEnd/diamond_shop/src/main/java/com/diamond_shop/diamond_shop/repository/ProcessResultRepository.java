@@ -14,10 +14,9 @@ public interface ProcessResultRepository extends JpaRepository<ProcessResultEnti
 
     @Query(value = "SELECT COUNT (p.valuationStaffId) " +
             "FROM ProcessResultEntity p " +
-            "WHERE p.valuationStaffId.id=:staffId")
+            "WHERE p.valuationStaffId.is_active=true AND p.valuationStaffId.id=:staffId")
     long countByStaffId(@Param("staffId") int staffId);
 
-    //
     @Query(value = "SELECT " +
             "NEW com.diamond_shop.diamond_shop.pojo.ProcessResultPojo(" +
             "p.valuationResultId.id," +
@@ -40,9 +39,9 @@ public interface ProcessResultRepository extends JpaRepository<ProcessResultEnti
             "p.valuationResultId.lengthToWidthRatio," +
             "p.valuationResultId.price)" +
             "FROM ProcessResultEntity as p " +
-            "WHERE p.valuationStaffId.id=:valuationStaffId")
+            "WHERE p.valuationStaffId.is_active=true AND p.valuationStaffId.id=:valuationStaffId")
     Page<ProcessResultEntity> findAllByValuationStaffId(Pageable pageable, @Param("valuationStaffId") int valuationStaffId);
 
-    @Query("SELECT p FROM ProcessResultEntity p WHERE p.valuationResultId.id=:id")
+    @Query("SELECT p FROM ProcessResultEntity p WHERE p.valuationStaffId.is_active=true AND p.valuationResultId.id=:id")
     ProcessResultEntity findByValuationResultId(@Param("id") String id);
 }

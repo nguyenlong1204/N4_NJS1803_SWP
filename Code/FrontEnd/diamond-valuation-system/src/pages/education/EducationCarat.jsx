@@ -15,6 +15,7 @@ import {
   useColorModeValue,
   Container,
   useBreakpointValue,
+  Box,
 } from "@chakra-ui/react";
 import { Link as LinkRouterDom } from "react-router-dom";
 import React from "react";
@@ -29,7 +30,7 @@ export default function EducationCarat() {
   const bgColor = useColorModeValue("white", "black");
   const normalText = useBreakpointValue({ base: "sm", md: "md", lg: "lg" });
   return (
-    <>
+    <Box bg={bgColor}>
       <ScrollToTop smooth style={{display:"flex" ,alignItems:"center", justifyContent:"center", padding:"4px"}}/>
       <Container maxW={"100vw"}>
         <Flex
@@ -532,6 +533,6 @@ export default function EducationCarat() {
           </Flex>
         </Flex>
       </Container>
-    </>
+    </Box>
   );
 }

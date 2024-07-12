@@ -18,8 +18,8 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { IoDiamond, IoDiamondOutline } from "react-icons/io5";
-import { Link as LinkReactRouterDOM } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link as LinkReactRouterDOM, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import PopoverInfo from "../../components/PopoverInfo";
 import GridValue from "../../components/GridValue";
 import {
@@ -32,13 +32,16 @@ import {
 import axios from "axios";
 import ScrollToTop from "react-scroll-to-top";
 import SendEmailModal from "../../components/SendEmailModal";
+import { UserContext } from "../../components/GlobalContext/AuthContext";
+import routes from "../../config/Config";
 
 export default function Calculate() {
-  const bgColor = useColorModeValue("white", "black");
+  const fontColor = useColorModeValue("white", "black");
+  const bgColor = useColorModeValue("blue.400", "#DBA843");
   const toast = useToast();
-
+  const user = useContext(UserContext);
   const sendEmailModal = useDisclosure();
-
+  const nav = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [sliderValue, setSliderValue] = useState();
   const [sliderShowToolTip, setSliderShowToolTip] = useState(false);
@@ -77,6 +80,7 @@ export default function Calculate() {
           title: "Diamond Valuation",
           description: "Please fill all the fields",
           status: "error",
+          position: 'top-right',
           duration: 3000,
           isClosable: true,
         });
@@ -118,6 +122,7 @@ export default function Calculate() {
             toast({
               title: "Diamond Valuation",
               description: "There is no available data for this query.",
+              position: 'top-right',
               status: "warning",
               duration: 3000,
               isClosable: true,
@@ -127,6 +132,7 @@ export default function Calculate() {
             toast({
               title: "Diamond Valuation",
               description: "Diamond has been valuated successfully",
+              position: 'top-right',
               status: "success",
               duration: 3000,
               isClosable: true,
@@ -138,6 +144,7 @@ export default function Calculate() {
       toast({
         title: "Diamond Valuation",
         description: "An error occurred",
+        position: 'top-right',
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -150,14 +157,14 @@ export default function Calculate() {
   useEffect(() => {}, []);
 
   return (
-    <>
+    <Box bg={fontColor}>
       <ScrollToTop smooth style={{display:"flex" ,alignItems:"center", justifyContent:"center", padding:"4px"}}/>
       <Container maxW={"9xl"}>
         <Flex
           direction="column"
           alignItems="center"
           justifyContent="center"
-          bg={bgColor}
+          bg={fontColor}
           paddingTop={10}
         >
           <Text
@@ -260,13 +267,13 @@ export default function Calculate() {
                     <SliderTrack>{/* <SliderFilledTrack /> */}</SliderTrack>
                     <Tooltip
                       hasArrow
-                      bg={"blue.400"}
-                      color={"white"}
+                      bg={bgColor}
+                      color={fontColor}
                       placement="top"
                       isOpen={sliderShowToolTip}
                       label={sliderValue}
                     >
-                      <SliderThumb bg={"blue.400"} boxSize={6}>
+                      <SliderThumb bg={bgColor} color={fontColor} boxSize={6}>
                         <Box as={IoDiamondOutline} />
                       </SliderThumb>
                     </Tooltip>
@@ -274,7 +281,7 @@ export default function Calculate() {
                 </Flex>
                 <Button
                   borderRadius={"md"}
-                  colorScheme="blue"
+                  bg={bgColor} color={fontColor}
                   w={"inherit"}
                   m={"10px 0 0 0"}
                   isLoading={isLoading}
@@ -356,11 +363,24 @@ export default function Calculate() {
                   Contact with our experts to get a valuation
                 </Text>
                 <Center>
-                  <LinkReactRouterDOM to={"/diamond-service"}>
-                    <Button leftIcon={<IoDiamond />} colorScheme="blue">
-                      Valuate Diamond
+                  
+                    <Button onClick={() => {                      
+                      if (user.userAuth === "") {
+                        toast({
+                          title: "you need to log in first!",
+                          status: 'error',
+                          position:'top-right',
+                          duration: 3000,
+                          isClosable: true,
+                        })
+                      }
+                      else {
+                        nav(routes.diamondValuationRequest)
+                      }
+                    }} leftIcon={<IoDiamond />} bg={bgColor} color={fontColor}>
+                      Create Request
                     </Button>
-                  </LinkReactRouterDOM>
+                  
                 </Center>
               </SimpleGrid>
             </Flex>
@@ -382,6 +402,6 @@ export default function Calculate() {
         Avg: ${valuationResult.avg}$ \n
         Max: ${valuationResult.max}$ \n`}
       />
-    </>
+    </Box>
   );
 }

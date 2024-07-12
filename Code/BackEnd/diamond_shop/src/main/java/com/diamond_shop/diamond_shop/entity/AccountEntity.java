@@ -1,14 +1,29 @@
 package com.diamond_shop.diamond_shop.entity;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.security.core.GrantedAuthority;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.*;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -51,6 +66,12 @@ public class AccountEntity {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "is_active")
+    private Boolean is_active;
+
+    @Column(name = "activate_code")
+    private String activate_code;
+
     @OneToMany(mappedBy = "staffId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ProcessRequestEntity> processRequestEntity = new HashSet<>();
 
@@ -63,14 +84,25 @@ public class AccountEntity {
     @OneToMany(mappedBy = "customerId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<PaymentEntity> paymentEntity = new HashSet<>();
 
-    public AccountEntity(RoleEntity role_id, String username, String password, String fullname, String phone_number, String email) {
+    public AccountEntity(RoleEntity role_id, String username, String password, String fullname, String phone_number, String email, Boolean isActive, String activate_code) {
         this.role = role_id;
         this.username = username;
         this.password = password;
         this.fullname = fullname;
         this.phone_number = phone_number;
         this.email = email;
+        this.is_active = isActive;
+        this.activate_code = activate_code;
     }
+    
+    public AccountEntity(RoleEntity role, String username, String password, String fullname, String email) {
+        this.role = role;
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.email = email;
+    }
+    
 
     public AccountEntity(int id, String username, String fullname, String phone_number, String password) {
         this.id = id;
@@ -80,7 +112,7 @@ public class AccountEntity {
         this.password = password;
     }
 
-    public AccountEntity(RoleEntity role, String username, String password, String fullname, String email, String phonenumber, String address) {
+    public AccountEntity(RoleEntity role, String username, String password, String fullname, String email, String phonenumber, String address, Boolean isActive) {
         this.role = role;
         this.username = username;
         this.password = password;
@@ -88,6 +120,7 @@ public class AccountEntity {
         this.email = email;
         this.phone_number = phonenumber;
         this.address = address;
+        this.is_active = isActive;
     }
 
     public AccountEntity(String username, String password) {

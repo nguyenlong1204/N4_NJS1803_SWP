@@ -5,6 +5,7 @@ import com.diamond_shop.diamond_shop.repository.AccountRepository;
 import com.diamond_shop.diamond_shop.repository.ProcessResultRepository;
 import com.diamond_shop.diamond_shop.repository.RoleRepository;
 import com.diamond_shop.diamond_shop.repository.ValuationResultRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,23 +13,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProcessResultImpl implements ProcessResultService {
 
     private final ProcessResultRepository processResultRepository;
     private final RoleRepository roleRepository;
     private final AccountRepository accountRepository;
     private final ValuationResultRepository valuationResultRepository;
-
-    public ProcessResultImpl(
-            ProcessResultRepository processResultRepository,
-            RoleRepository roleRepository,
-            AccountRepository accountRepository,
-            ValuationResultRepository valuationResultRepository) {
-        this.processResultRepository = processResultRepository;
-        this.roleRepository = roleRepository;
-        this.accountRepository = accountRepository;
-        this.valuationResultRepository = valuationResultRepository;
-    }
 
     @Override
     public Page<ProcessResultEntity> getAllByValuationStaffId(int page, int valuationStaffId) {

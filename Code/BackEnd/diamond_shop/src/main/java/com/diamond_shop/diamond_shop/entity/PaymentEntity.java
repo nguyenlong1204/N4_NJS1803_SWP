@@ -44,7 +44,7 @@ public class PaymentEntity {
     @Column(name = "transaction_no")
     private String transaction;
 
-    @Column(name = "order_info")
+    @Column(name = "order_info")   
     private String orderInfo;
 
     @OneToOne(mappedBy = "paymentId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

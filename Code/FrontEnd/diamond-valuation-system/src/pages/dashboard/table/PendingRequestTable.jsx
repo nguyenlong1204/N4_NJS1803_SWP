@@ -18,6 +18,7 @@ import {
   Button,
   ModalFooter,
   useToast,
+  Box,
   Center,
   Skeleton,
   Stack,
@@ -31,29 +32,38 @@ import { useNavigate } from "react-router-dom";
 import { set } from "date-fns";
 
 export default function PendingRequestTable() {
-  const navigate = useNavigate();
   const toast = useToast();
   const user = useContext(UserContext);
+  const isUsers =
+    user.userAuth &&
+    user.userAuth.authorities &&
+    user.userAuth.authorities.length > 0;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
   const viewPendingRequest = useDisclosure();
   const [isLoadedPendingRequest, setIsLoadedPendingRequest] = useState(false);
   const [pendingRequest, setPendingRequest] = useState([]);
-  const [selectedPendingRequest, setSelectedPendingRequest] = useState({});
+  const [selectedPendingRequest, setSelectedPendingRequest] = useState(null);
   const fetchPendingRequest = (page, id) => {
-    setIsLoadedPendingRequest(true);
-    let url = "";
-    if (user.userAuth.roleid === 3 || user.userAuth.roleid === 2) {
+    if(isUsers)
+    {
+
+      setIsLoadedPendingRequest(true);
+      let url = "";
+      if (
+      user.userAuth.authorities[0].authority === "Consulting staff" ||
+      user.userAuth.authorities[0].authority === "Manager"
+    ) {
       url = `${
         import.meta.env.VITE_REACT_APP_BASE_URL
-      }/api/pending-request/get/all?page=${page}`;
-    } else if (user.userAuth.roleid === 5) {
+        }/api/pending-request/get/all?page=${page}`;
+    } else if (user.userAuth.authorities[0].authority === "Customer") {
       url = `${
         import.meta.env.VITE_REACT_APP_BASE_URL
       }/api/pending-request/customer/get?page=${page}&id=${id}`;
     }
     axios.get(url).then(function (response) {
-      console.log(response.data);
+      console.log(response);
       if (response.status === 200) {
         setPendingRequest(response.data.content);
         setTotalPages(response.data?.totalPages);
@@ -61,20 +71,29 @@ export default function PendingRequestTable() {
       }
     });
   };
+}
   const receivePendingRequest = (consultingStaffId, pendingRequestId) => {
+    setIsLoadedPendingRequest(true);
     axios
       .post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/process-request/create`,
         {
           pendingRequestId: pendingRequestId,
           consultingStaffId: consultingStaffId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.userAuth.token}`,
+          },
         }
       )
       .then(function (response) {
+        setIsLoadedPendingRequest(false);
         if (response.data === "Have already received !") {
           toast({
             title: response.data,
-            status: "warning",
+            status: "warning",      position: "top-right",
+
             duration: 3000,
             isClosable: true,
           });
@@ -86,9 +105,14 @@ export default function PendingRequestTable() {
             duration: 3000,
             isClosable: true,
           });
+          setTimeout(() => {
+            fetchPendingRequest(currentPage, user.userAuth.id);
+            viewPendingRequest.onClose();
+          }, 1000);
         }
       })
       .catch(function (error) {
+        setIsLoadedPendingRequest(false);
         toast({
           title: error.response.data,
           status: "error",
@@ -99,15 +123,22 @@ export default function PendingRequestTable() {
       });
   };
   const cancelPendingRequest = (pendingRequestId) => {
+    setIsLoadedPendingRequest(true);
     axios
       .delete(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/api/pending-request/delete?id=${pendingRequestId}`
+        }/api/pending-request/delete?id=${pendingRequestId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.userAuth.token}`,
+          },
+        }
       )
       .then(function (response) {
         if (response.status === 200) {
           if (response.data.includes("successful")) {
+            setIsLoadedPendingRequest(false);
             toast({
               title: response.data,
               status: "success",
@@ -117,8 +148,10 @@ export default function PendingRequestTable() {
             });
             setTimeout(() => {
               fetchPendingRequest(currentPage, user.userAuth.id);
+              viewPendingRequest.onClose();
             }, 1000);
           } else {
+            setIsLoadedPendingRequest(false);
             toast({
               title: response.data,
               status: "error",
@@ -132,39 +165,36 @@ export default function PendingRequestTable() {
   };
   useEffect(() => {
     fetchPendingRequest(currentPage, user.userAuth.id);
-  }, []);
-  useEffect(() => {
-    fetchPendingRequest(currentPage, user.userAuth.id);
   }, [currentPage]);
   return (
     <>
-      <Flex direction={"column"} gap={10}>
+      <Flex direction={"column"} gap={10} >
         <Center>
           <Text fontSize="4xl" fontWeight="bold">
             Pending Request
           </Text>
         </Center>
         {totalPages === 0 ? (
-          <Center>No pending request to show</Center>
+          <Center >No pending request to show</Center>
         ) : (
           <Skeleton isLoaded={pendingRequest.length > 0} height={"200px"}>
-            <TableContainer>
-              <Table size={"sm"} colorScheme="blue">
-                <Thead bg={"blue.400"}>
+            <TableContainer shadow="md" borderRadius="md">
+              <Table >
+                <Thead bg="gray.600" mb={5} boxShadow="sm" borderRadius="md" maxW="100%" minW="100%">
                   <Tr>
-                    <Th>No</Th>
-                    <Th>Customer Name</Th>
-                    <Th>Email</Th>
-                    <Th>Phone Number</Th>
-                    <Th>Description</Th>
-                    <Th>Created Date</Th>
-                    <Th>View</Th>
+                    <Th color="white">ID</Th>
+                    <Th color="white">Customer Name</Th>
+                    <Th color="white">Email</Th>
+                    <Th color="white">Phone Number</Th>
+                    <Th color="white">Description</Th>
+                    <Th color="white">Created Date</Th>
+                    <Th color="white">View</Th>
                   </Tr>
                 </Thead>
-                <Tbody>
+                <Tbody variant="simple" bg="gray.200" color="black">
                   {pendingRequest.map((item, index) => (
-                    <Tr key={index}>
-                      <Td>{index + 1}</Td>
+                    <Tr key={index} >
+                      <Td>{item?.id}</Td>
                       <Td>{item?.customerName || "N/A"}</Td>
                       <Td>{item?.customerEmail || "N/A"}</Td>
                       <Td>{item?.customerPhone || "N/A"}</Td>
@@ -174,6 +204,7 @@ export default function PendingRequestTable() {
                         <IconButton
                           icon={<ViewIcon />}
                           bgColor={"transparent"}
+                          color="black"
                           onClick={() => {
                             setSelectedPendingRequest(item);
                             viewPendingRequest.onOpen();
@@ -185,16 +216,15 @@ export default function PendingRequestTable() {
                 </Tbody>
               </Table>
             </TableContainer>
+            <Center m={"50px 0 0 0"}>
+              <PageIndicator
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+              />
+            </Center>
           </Skeleton>
         )}
-        <Center>
-          <PageIndicator
-            totalPages={totalPages}
-            setCurrentPage={setCurrentPage}
-          />
-        </Center>
       </Flex>
-
       <Modal
         isOpen={viewPendingRequest.isOpen}
         onClose={viewPendingRequest.onClose}
@@ -202,61 +232,70 @@ export default function PendingRequestTable() {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            Pending Request ID: {selectedPendingRequest?.id || "N/A"}
+            <Skeleton isLoaded={selectedPendingRequest !== null}>
+              Pending Request ID: {selectedPendingRequest?.id || "N/A"}
+            </Skeleton>
           </ModalHeader>
           <ModalBody>
-            <Flex direction={"column"} gap={5}>
-              <Text>
-                <strong>Created Date</strong>:{" "}
-                {selectedPendingRequest?.createdDate?.slice(0, 10) || "N/A"}
-              </Text>
-              <Text>
-                <strong>Description</strong>:{" "}
-                {selectedPendingRequest?.description || "N/A"}
-              </Text>
-              <Text>
-                <strong>Customer Name</strong>:{" "}
-                {selectedPendingRequest?.customerName || "N/A"}
-              </Text>
-              <Text>
-                <strong>Email</strong>:{" "}
-                {selectedPendingRequest?.customerEmail || "N/A"}
-              </Text>
-              <Text>
-                <strong>Phone Number</strong>:{" "}
-                {selectedPendingRequest?.customerPhone || "N/A"}
-              </Text>
-            </Flex>
+            <Skeleton isLoaded={selectedPendingRequest !== null}>
+              <Flex direction={"column"} gap={5}>
+                <Text>
+                  <strong>Created Date</strong>:{" "}
+                  {selectedPendingRequest?.createdDate?.slice(0, 10) || "N/A"}
+                </Text>
+                <Text>
+                  <strong>Description</strong>:{" "}
+                  {selectedPendingRequest?.description || "N/A"}
+                </Text>
+                <Text>
+                  <strong>Customer Name</strong>:{" "}
+                  {selectedPendingRequest?.customerName || "N/A"}
+                </Text>
+                <Text>
+                  <strong>Email</strong>:{" "}
+                  {selectedPendingRequest?.customerEmail || "N/A"}
+                </Text>
+                <Text>
+                  <strong>Phone Number</strong>:{" "}
+                  {selectedPendingRequest?.customerPhone || "N/A"}
+                </Text>
+              </Flex>
+            </Skeleton>
           </ModalBody>
-          {(user.userAuth.roleid === 5 && (
-            <ModalFooter justifyContent={"space-around"}>
-              <Button
-                colorScheme="red"
-                onClick={() => {
-                  cancelPendingRequest(selectedPendingRequest?.id);
-                  viewPendingRequest.onClose();
-                }}
-              >
-                Cancel
-              </Button>
-            </ModalFooter>
-          )) ||
-            (user.userAuth.roleid === 3 && (
-              <ModalFooter justifyContent={"space-around"}>
-                <Button
-                  colorScheme="teal"
-                  onClick={() => {
-                    receivePendingRequest(
-                      user?.userAuth?.id,
-                      selectedPendingRequest?.id
-                    );
-                    viewPendingRequest.onClose();
-                  }}
-                >
-                  Receive
-                </Button>
-              </ModalFooter>
-            ))}
+          <Skeleton isLoaded={selectedPendingRequest !== null}>
+            {(isUsers &&
+              user.userAuth.authorities[0].authority === "Customer" && (
+                <ModalFooter justifyContent={"space-around"}>
+                  <Button
+                    isLoading={isLoadedPendingRequest}
+                    colorScheme="red"
+                    onClick={() => {
+                      cancelPendingRequest(selectedPendingRequest?.id);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </ModalFooter>
+              )) ||
+              (isUsers &&
+                user.userAuth.authorities[0].authority ===
+                  "Consulting staff" && (
+                  <ModalFooter justifyContent={"space-around"}>
+                    <Button
+                      isLoading={isLoadedPendingRequest}
+                      colorScheme="teal"
+                      onClick={() => {
+                        receivePendingRequest(
+                          user?.userAuth?.id,
+                          selectedPendingRequest?.id
+                        );
+                      }}
+                    >
+                      Receive
+                    </Button>
+                  </ModalFooter>
+                ))}
+          </Skeleton>
         </ModalContent>
       </Modal>
     </>

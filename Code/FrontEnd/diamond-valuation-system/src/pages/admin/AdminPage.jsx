@@ -7,7 +7,7 @@ import {
   useColorModeValue,
   Container,
 } from "@chakra-ui/react";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import ConfirmAlert from "../../components/ConfirmAlert";
 import { useDebounce } from "@uidotdev/usehooks";
 import AdminViewUsers from "./AdminViewUsers";
@@ -16,10 +16,13 @@ import AdminCreateUsers from "./AdminCreateUsers";
 import AdminUpdateUsers from "./AdminUpdateUsers";
 import AdminTable from "./AdminTable";
 import { fetchAccounts, deleteAccount } from "./AdminServices";
+import { UserContext } from "../../components/GlobalContext/AuthContext";
 export default function AdminPage() {
   const bgColor = useColorModeValue("white", "black");
 
   const toast = useToast();
+
+  const user = useContext(UserContext);
 
   const createUser = useDisclosure();
   const updateUser = useDisclosure();
@@ -189,7 +192,7 @@ export default function AdminPage() {
         colorScheme={"red"}
         onClickFunc={() => {
           confirmDeleteUser.onClose();
-          deleteAccount(deleteId, setIsDeleted, toast);
+          deleteAccount(deleteId, setIsDeleted, toast, user.userAuth.token);
         }}
       />
     </>

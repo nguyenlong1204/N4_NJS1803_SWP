@@ -26,11 +26,13 @@ import { validateSignUp } from "../../utils/ValidateSignUp";
 import Http from "../../utils/Http";
 import { FiEye } from "react-icons/fi";
 import { IoEyeOffOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 export default function SignUp({ signUp, signIn }) {
   const toast = useToast();
   const [show, setShow] = useState(false);
   const [confirmshow, setConfirmShow] = useState(false);
   const handleShowPassWord = () => setShow(!show);
+  const nav = useNavigate();
   const handleShowConfirmPw = () => setConfirmShow(!confirmshow);
   async function signUpApi(username, fullname, email, phonenumber, password) {
     try {
@@ -47,19 +49,22 @@ export default function SignUp({ signUp, signIn }) {
           description: res.data,
           position: "top-right",
           status: "error",
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         });
         throw new Error(res.data);
       } else {
         toast({
           title: "Account created.",
-          description: "We've created your account for you.",
+          description: "Please check your email to active account! 🙌.",
           position: "top-right",
           status: "success",
           duration: 3000,
           isClosable: true,
         });
+        setTimeout(() => {
+          nav(`/activate/${email}`);
+        }, 2000);
       }
     } catch (error) {
       toast({
@@ -104,7 +109,7 @@ export default function SignUp({ signUp, signIn }) {
                 values.password
               );
               setSubmitting(false);
-              signUp.onClose();
+              // signUp.onClose();
             }}
           >
             {({
@@ -269,7 +274,8 @@ export default function SignUp({ signUp, signIn }) {
                     type="submit"
                     colorScheme="blue"
                     w={"inherit"}
-                    disabled={isSubmitting}
+                    isDisabled={isSubmitting}
+                    isLoading={isSubmitting}
                   >
                     Sign up
                   </Button>

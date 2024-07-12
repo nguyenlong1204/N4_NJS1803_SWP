@@ -20,4 +20,5 @@ public class CommitmentPojo {
     int amount;
     String transactionNo;
     String orderInfo;
+    Date dateOfPurchase;
 }

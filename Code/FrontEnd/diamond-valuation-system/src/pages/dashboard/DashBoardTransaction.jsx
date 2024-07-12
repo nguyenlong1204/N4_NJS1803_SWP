@@ -1,4 +1,4 @@
-import { Table, TableContainer, Thead,Tr,Th,Tbody,Td, Skeleton } from "@chakra-ui/react";
+import { Table, TableContainer, Thead,Tr,Th,Tbody,Td, Skeleton, Box, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { getCustomerTransaction } from "../../service/GetCustomerTransaction";
 import { UserContext } from './../../components/GlobalContext/AuthContext';
@@ -21,17 +21,21 @@ export default function DashBoardTransaction() {
         fetchApi(auth.userAuth.id);
     },[])
     return (
-        <TableContainer>
-            <Table variant="simple">
+        <Box bg="gray.600" color="white" mb={5} boxShadow="sm" borderRadius="md" maxW="100%" minW="100%">
+            <Text py={3} fontSize="lg" pl={4}>
+                TRANSACTIONS
+            </Text>
+            <TableContainer >
+            <Table variant="simple" bg="gray.200" color="black">
                 <Thead>
                     <Tr>
-                        <Th>#</Th>
-                        <Th>Transaction No</Th>
-                        <Th>Name</Th>
-                        <Th>Bank</Th>
-                        <Th>Amount</Th>
-                        <Th>Date</Th>
-                        <Th>Description</Th>
+                        <Th color="black">No</Th>
+                        <Th color="black">Transaction No</Th>
+                        <Th color="black">Name</Th>
+                        <Th color="black">Bank</Th>
+                        <Th color="black">Amount</Th>
+                        <Th color="black">Date</Th>
+                        <Th color="black">Description</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
@@ -80,5 +84,7 @@ export default function DashBoardTransaction() {
                 </Tbody>
             </Table>
         </TableContainer>
+        </Box>
+        
     );
 }

@@ -37,7 +37,7 @@ export const validateSignUp = (values, type) => {
   }
   if (values.email) {
     if (
-      !/([a-zA-Z0-9]+)([\_\.\-{1}])?([a-zA-Z0-9]+)\@([a-zA-Z0-9]+)([\.])([a-zA-Z\.]+)/.test(
+      !/([a-zA-Z0-9]+)\@([a-zA-Z0-9]+)([\.])([a-zA-Z\.]+)/.test(
         values.email
       )
     ) {

@@ -24,7 +24,7 @@ public interface CommitmentRepository extends JpaRepository<CommitmentLetterEnti
             "c.valuationRequest.paymentId.bank," +
             "c.valuationRequest.paymentId.amount," +
             "c.valuationRequest.paymentId.transaction," +
-            "c.valuationRequest.paymentId.orderInfo) " +
+            "c.valuationRequest.paymentId.orderInfo, c.valuationRequest.paymentId.createdDate) " +
             "FROM CommitmentLetterEntity as c")
     Page<CommitmentLetterEntity> findAll(Pageable pageable);
 
@@ -39,10 +39,10 @@ public interface CommitmentRepository extends JpaRepository<CommitmentLetterEnti
             "c.valuationRequest.paymentId.bank," +
             "c.valuationRequest.paymentId.amount," +
             "c.valuationRequest.paymentId.transaction," +
-            "c.valuationRequest.paymentId.orderInfo) " +
+            "c.valuationRequest.paymentId.orderInfo, c.valuationRequest.paymentId.createdDate) " +
             "FROM CommitmentLetterEntity as c " +
             "WHERE c.valuationRequest.pendingRequestId.customerId.id=:customerId")
-    Page<CommitmentLetterEntity> findAllByCustomerId(Pageable pageable, @Param("customerId")int customerId);
+    Page<CommitmentLetterEntity> findAllByCustomerId(Pageable pageable, @Param("customerId") int customerId);
 
     @Query("SELECT c FROM CommitmentLetterEntity c WHERE c.valuationRequest.id=:id")
     Optional<CommitmentLetterEntity> findByValuationRequestId(@Param("id") Integer id);

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 
 public interface ValuationRequestService {
+
     String makeRequest(int pendingId, int serviceId, int paymentId);
 
     Optional<ValuationRequestEntity> getValuationRequestByPendingRequestId(int pendingId);

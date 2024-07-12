@@ -12,6 +12,7 @@ import java.util.Optional;
 @Repository
 public interface ValuationRequestRepository extends JpaRepository<ValuationRequestEntity, Integer> {
 
+
     @Query("SELECT " +
             "NEW com.diamond_shop.diamond_shop.pojo.ValuationRequestPojo(" +
             "v.id," +
