@@ -70,4 +70,4 @@ file reportmapping: https://docs.google.com/spreadsheets/d/13m2kTznaGbCohWDWBleN
 | **Nguyễn Khánh Trình**  | UC08: Evaluation through criteria FE                      |
 |                         | UC12: Declare Pricing list                                |
 |                         | UC13: Declare service performance time                    |
-|                         | UC24: View Criteria Sample                                |
+|                         | UC24: Creating a Sealing Record                           |
